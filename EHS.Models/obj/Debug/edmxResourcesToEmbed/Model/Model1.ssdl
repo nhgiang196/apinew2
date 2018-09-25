@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestEHSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CenterDepartment">
+    <Key>
+      <PropertyRef Name="CostCenter" />
+    </Key>
+    <Property Name="CostCenter" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Specification_EN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_VN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_TW" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_CN" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompID" />
+    </Key>
+    <Property Name="CompID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompName" Type="nvarchar" MaxLength="255" />
+    <Property Name="CompCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="CostCenter" />
+    </Key>
+    <Property Name="CostCenter" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Specification_EN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_VN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_TW" Type="nvarchar" MaxLength="150" />
+    <Property Name="Specification_CN" Type="nvarchar" MaxLength="150" />
+    <Property Name="Center" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MethodProcess">
+    <Key>
+      <PropertyRef Name="MethodID" />
+    </Key>
+    <Property Name="MethodID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MethodName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description_EN" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_TW" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_CN" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_VN" Type="nvarchar" MaxLength="255" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="Voucher">
+    <Key>
+      <PropertyRef Name="VoucherID" />
+    </Key>
+    <Property Name="VoucherID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OwnerComp" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProcessComp" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VoucherNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="DepartReq" Type="nvarchar" MaxLength="50" />
+    <Property Name="DepartProcess" Type="nvarchar" MaxLength="50" />
+    <Property Name="InternalPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Location" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateOut" Type="date" />
+    <Property Name="DateComplete" Type="date" />
+    <Property Name="ReturnReason" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Stamp" Type="datetime" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="VoucherDetail">
+    <Key>
+      <PropertyRef Name="WasteID" />
+      <PropertyRef Name="VoucherID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="WasteID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VoucherID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Weight" Type="real" />
+  </EntityType>
+  <EntityType Name="WasteItems">
+    <Key>
+      <PropertyRef Name="WasteID" />
+    </Key>
+    <Property Name="WasteID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MethodID" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description_EN" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_TW" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_CN" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description_VN" Type="nvarchar" MaxLength="255" />
+    <Property Name="CompID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <Association Name="FK_Department_CenterDepartment">
+    <End Role="CenterDepartment" Type="Self.CenterDepartment" Multiplicity="0..1" />
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CenterDepartment">
+        <PropertyRef Name="CostCenter" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="Center" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_voucher__voucherID_voucher">
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VoucherDetail" Type="Self.VoucherDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voucher">
+        <PropertyRef Name="VoucherID" />
+      </Principal>
+      <Dependent Role="VoucherDetail">
+        <PropertyRef Name="VoucherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_voucher__wasteID_waste_it">
+    <End Role="WasteItems" Type="Self.WasteItems" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VoucherDetail" Type="Self.VoucherDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WasteItems">
+        <PropertyRef Name="WasteID" />
+      </Principal>
+      <Dependent Role="VoucherDetail">
+        <PropertyRef Name="WasteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Voucher_CenterDepartment">
+    <End Role="CenterDepartment" Type="Self.CenterDepartment" Multiplicity="0..1" />
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CenterDepartment">
+        <PropertyRef Name="CostCenter" />
+      </Principal>
+      <Dependent Role="Voucher">
+        <PropertyRef Name="DepartReq" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Voucher_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="CostCenter" />
+      </Principal>
+      <Dependent Role="Voucher">
+        <PropertyRef Name="DepartProcess" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_voucher_owner_com_company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompID" />
+      </Principal>
+      <Dependent Role="Voucher">
+        <PropertyRef Name="OwnerComp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_voucher_process_c_company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompID" />
+      </Principal>
+      <Dependent Role="Voucher">
+        <PropertyRef Name="ProcessComp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_waste_it_methodID_method_p">
+    <End Role="MethodProcess" Type="Self.MethodProcess" Multiplicity="0..1" />
+    <End Role="WasteItems" Type="Self.WasteItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MethodProcess">
+        <PropertyRef Name="MethodID" />
+      </Principal>
+      <Dependent Role="WasteItems">
+        <PropertyRef Name="MethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WasteItems_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="WasteItems" Type="Self.WasteItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompID" />
+      </Principal>
+      <Dependent Role="WasteItems">
+        <PropertyRef Name="CompID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetBasic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Table" Type="nvarchar" Mode="In" />
+    <Parameter Name="Lang" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetVoucher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VoucherID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetVoucherDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VoucherID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetVoucherNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetWasteByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Language" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcessComp" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetWasteItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Language" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SearchCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="CompCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SearchMethod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MethodID" Type="nvarchar" Mode="In" />
+    <Parameter Name="MethodName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SearchVoucher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VoucherID" Type="nvarchar" Mode="In" />
+    <Parameter Name="From" Type="datetime" Mode="In" />
+    <Parameter Name="To" Type="datetime" Mode="In" />
+    <Parameter Name="ProcessComp" Type="nvarchar" Mode="In" />
+    <Parameter Name="DepartProcess" Type="nvarchar" Mode="In" />
+    <Parameter Name="InternalPhone" Type="nvarchar" Mode="In" />
+    <Parameter Name="VoucherNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="DepartReq" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+    <Parameter Name="CheckMyOwn" Type="bit" Mode="In" />
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="PageIndex" Type="int" Mode="In" />
+    <Parameter Name="Lang" Type="nvarchar" Mode="In" />
+    <Parameter Name="count" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="SearchWasteItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MethodID" Type="nvarchar" Mode="In" />
+    <Parameter Name="State" Type="nvarchar" Mode="In" />
+    <Parameter Name="ItemCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcessComp" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="TestEHSModelStoreContainer">
+    <EntitySet Name="CenterDepartment" EntityType="Self.CenterDepartment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MethodProcess" EntityType="Self.MethodProcess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VoucherDetail" EntityType="Self.VoucherDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WasteItems" EntityType="Self.WasteItems" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Department_CenterDepartment" Association="Self.FK_Department_CenterDepartment">
+      <End Role="CenterDepartment" EntitySet="CenterDepartment" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="fk_voucher__voucherID_voucher" Association="Self.fk_voucher__voucherID_voucher">
+      <End Role="Voucher" EntitySet="Voucher" />
+      <End Role="VoucherDetail" EntitySet="VoucherDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_voucher__wasteID_waste_it" Association="Self.fk_voucher__wasteID_waste_it">
+      <End Role="WasteItems" EntitySet="WasteItems" />
+      <End Role="VoucherDetail" EntitySet="VoucherDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voucher_CenterDepartment" Association="Self.FK_Voucher_CenterDepartment">
+      <End Role="CenterDepartment" EntitySet="CenterDepartment" />
+      <End Role="Voucher" EntitySet="Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voucher_Department" Association="Self.FK_Voucher_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Voucher" EntitySet="Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="fk_voucher_owner_com_company" Association="Self.fk_voucher_owner_com_company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Voucher" EntitySet="Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="fk_voucher_process_c_company" Association="Self.fk_voucher_process_c_company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Voucher" EntitySet="Voucher" />
+    </AssociationSet>
+    <AssociationSet Name="fk_waste_it_methodID_method_p" Association="Self.fk_waste_it_methodID_method_p">
+      <End Role="MethodProcess" EntitySet="MethodProcess" />
+      <End Role="WasteItems" EntitySet="WasteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WasteItems_Company" Association="Self.FK_WasteItems_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="WasteItems" EntitySet="WasteItems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

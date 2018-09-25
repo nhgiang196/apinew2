@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestEHSModelStoreContainer" CdmEntityContainer="EHSContext">
+    <EntitySetMapping Name="CenterDepartments">
+      <EntityTypeMapping TypeName="TestEHSModel.CenterDepartment">
+        <MappingFragment StoreEntitySet="CenterDepartment">
+          <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+          <ScalarProperty Name="Specification_EN" ColumnName="Specification_EN" />
+          <ScalarProperty Name="Specification_VN" ColumnName="Specification_VN" />
+          <ScalarProperty Name="Specification_TW" ColumnName="Specification_TW" />
+          <ScalarProperty Name="Specification_CN" ColumnName="Specification_CN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="TestEHSModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CompID" ColumnName="CompID" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+          <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="TestEHSModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+          <ScalarProperty Name="Specification_EN" ColumnName="Specification_EN" />
+          <ScalarProperty Name="Specification_VN" ColumnName="Specification_VN" />
+          <ScalarProperty Name="Specification_TW" ColumnName="Specification_TW" />
+          <ScalarProperty Name="Specification_CN" ColumnName="Specification_CN" />
+          <ScalarProperty Name="Center" ColumnName="Center" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MethodProcesses">
+      <EntityTypeMapping TypeName="TestEHSModel.MethodProcess">
+        <MappingFragment StoreEntitySet="MethodProcess">
+          <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="Description_EN" ColumnName="Description_EN" />
+          <ScalarProperty Name="Description_TW" ColumnName="Description_TW" />
+          <ScalarProperty Name="Description_CN" ColumnName="Description_CN" />
+          <ScalarProperty Name="Description_VN" ColumnName="Description_VN" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vouchers">
+      <EntityTypeMapping TypeName="TestEHSModel.Voucher">
+        <MappingFragment StoreEntitySet="Voucher">
+          <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+          <ScalarProperty Name="OwnerComp" ColumnName="OwnerComp" />
+          <ScalarProperty Name="ProcessComp" ColumnName="ProcessComp" />
+          <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+          <ScalarProperty Name="DepartReq" ColumnName="DepartReq" />
+          <ScalarProperty Name="DepartProcess" ColumnName="DepartProcess" />
+          <ScalarProperty Name="InternalPhone" ColumnName="InternalPhone" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="DateOut" ColumnName="DateOut" />
+          <ScalarProperty Name="DateComplete" ColumnName="DateComplete" />
+          <ScalarProperty Name="ReturnReason" ColumnName="ReturnReason" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Stamp" ColumnName="Stamp" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoucherDetails">
+      <EntityTypeMapping TypeName="TestEHSModel.VoucherDetail">
+        <MappingFragment StoreEntitySet="VoucherDetail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="WasteID" ColumnName="WasteID" />
+          <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WasteItems">
+      <EntityTypeMapping TypeName="TestEHSModel.WasteItem">
+        <MappingFragment StoreEntitySet="WasteItems">
+          <ScalarProperty Name="WasteID" ColumnName="WasteID" />
+          <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Description_EN" ColumnName="Description_EN" />
+          <ScalarProperty Name="Description_TW" ColumnName="Description_TW" />
+          <ScalarProperty Name="Description_CN" ColumnName="Description_CN" />
+          <ScalarProperty Name="Description_VN" ColumnName="Description_VN" />
+          <ScalarProperty Name="CompID" ColumnName="CompID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetBasic" FunctionName="TestEHSModel.Store.GetBasic" />
+    <FunctionImportMapping FunctionImportName="GetVoucher" FunctionName="TestEHSModel.Store.GetVoucher">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.GetVoucher_Result">
+          <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+          <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+          <ScalarProperty Name="OwnerComp" ColumnName="OwnerComp" />
+          <ScalarProperty Name="OwnerCompCode" ColumnName="OwnerCompCode" />
+          <ScalarProperty Name="OwnerCompAddress" ColumnName="OwnerCompAddress" />
+          <ScalarProperty Name="OwnerCompPhone" ColumnName="OwnerCompPhone" />
+          <ScalarProperty Name="OwnerCompEmail" ColumnName="OwnerCompEmail" />
+          <ScalarProperty Name="ProcessComp" ColumnName="ProcessComp" />
+          <ScalarProperty Name="ProcessCompCode" ColumnName="ProcessCompCode" />
+          <ScalarProperty Name="ProcessCompAddress" ColumnName="ProcessCompAddress" />
+          <ScalarProperty Name="ProcessCompPhone" ColumnName="ProcessCompPhone" />
+          <ScalarProperty Name="ProcessCompEmail" ColumnName="ProcessCompEmail" />
+          <ScalarProperty Name="DepartProcess" ColumnName="DepartProcess" />
+          <ScalarProperty Name="DepartReq" ColumnName="DepartReq" />
+          <ScalarProperty Name="InternalPhone" ColumnName="InternalPhone" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="SumTotal" ColumnName="SumTotal" />
+          <ScalarProperty Name="SumQty" ColumnName="SumQty" />
+          <ScalarProperty Name="DateOut" ColumnName="DateOut" />
+          <ScalarProperty Name="DateComplete" ColumnName="DateComplete" />
+          <ScalarProperty Name="ReturnReason" ColumnName="ReturnReason" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Stamp" ColumnName="Stamp" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetVoucherDetail" FunctionName="TestEHSModel.Store.GetVoucherDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.GetVoucherDetail_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+          <ScalarProperty Name="Description_VN" ColumnName="Description_VN" />
+          <ScalarProperty Name="Description_TW" ColumnName="Description_TW" />
+          <ScalarProperty Name="Description_CN" ColumnName="Description_CN" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetVoucherNumber" FunctionName="TestEHSModel.Store.GetVoucherNumber" />
+    <FunctionImportMapping FunctionImportName="GetWasteByID" FunctionName="TestEHSModel.Store.GetWasteByID" />
+    <FunctionImportMapping FunctionImportName="GetWasteItem" FunctionName="TestEHSModel.Store.GetWasteItem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.GetWasteItem_Result">
+          <ScalarProperty Name="WasteID" ColumnName="WasteID" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="MethodDescription" ColumnName="MethodDescription" />
+          <ScalarProperty Name="WasteDescription" ColumnName="WasteDescription" />
+          <ScalarProperty Name="CompID" ColumnName="CompID" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SearchCompany" FunctionName="TestEHSModel.Store.SearchCompany">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.SearchCompany_Result">
+          <ScalarProperty Name="CompID" ColumnName="CompID" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+          <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SearchMethod" FunctionName="TestEHSModel.Store.SearchMethod">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.SearchMethod_Result">
+          <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="Description_EN" ColumnName="Description_EN" />
+          <ScalarProperty Name="Description_TW" ColumnName="Description_TW" />
+          <ScalarProperty Name="Description_CN" ColumnName="Description_CN" />
+          <ScalarProperty Name="Description_VN" ColumnName="Description_VN" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SearchVoucher" FunctionName="TestEHSModel.Store.SearchVoucher" />
+    <FunctionImportMapping FunctionImportName="SearchWasteItem" FunctionName="TestEHSModel.Store.SearchWasteItem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestEHSModel.SearchWasteItem_Result">
+          <ScalarProperty Name="WasteID" ColumnName="WasteID" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+          <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Description_VN" ColumnName="Description_VN" />
+          <ScalarProperty Name="Description_TW" ColumnName="Description_TW" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
