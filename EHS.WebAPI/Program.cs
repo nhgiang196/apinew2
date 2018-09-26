@@ -48,7 +48,7 @@ namespace WebAPI
                         if (!assemblies.Any(ass => ass.GetName().Name == Path.GetFileNameWithoutExtension(path)))
                             try
                             {
-                                Assembly.LoadFile(path);
+                                //Assembly.LoadFile(path);
                             }
                             catch { Debug.Fail("loaded an unknown dll"); }
                     }
