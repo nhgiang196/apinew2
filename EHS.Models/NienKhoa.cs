@@ -15,6 +15,14 @@ namespace EHS.Models
         {
            
         }
+        public NienKhoa(string nk, string ten, string nam, Nullable<System.DateTime> tungay, Nullable<System.DateTime> denngay)
+        {
+            this.nk = nk;
+            this.nkten = ten;
+            this.nknam = nam;
+            this.nktungay = tungay;
+            this.nkdenngay = denngay;
+        }
         [Column("nk")]
         [Key]
         public string nk { get; set; }
@@ -23,6 +31,6 @@ namespace EHS.Models
         public Nullable<System.DateTime> nktungay { get; set; }
         public Nullable<System.DateTime> nkdenngay { get; set; }
 
-        public virtual ICollection<HocCN> HocCNs { get; set; }
+        //public virtual ICollection<HocCN> HocCNs { get; set; }
     }
 }

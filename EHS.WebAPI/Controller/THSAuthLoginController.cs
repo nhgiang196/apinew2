@@ -34,7 +34,7 @@ namespace EHS.WebAPI.Controller
                 //var dt = _context.GiangViens.Where(x => x.gv == username && x.gvtkhau == password).FirstOrDefault();
                 if (dt.Rows.Count > 0)
                 {
-                    var result = new { username = username, nickname = dt.Rows[0]["nickname"], email = dt.Rows[0]["email"] };
+                    var result = new { username = username, nickname = dt.Rows[0]["nickname"], email = dt.Rows[0]["email"], bm = dt.Rows[0]["bm"] };
                     return Ok(result);
                 }
                 var result1 = new {};

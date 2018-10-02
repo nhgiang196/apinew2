@@ -13,7 +13,15 @@ namespace EHS.Models
     {
         public DonViNgoai()
         {
-           
+
+        }
+        public DonViNgoai(string dv, string ten, string diachi, string sdt, string email)
+        {
+            this.dv = dv;
+            this.dvten = ten;
+            this.dvdiachi = diachi;
+            this.dvsdt = sdt;
+            this.dveil = email;
         }
         [Column("dv")]
         [Key]
@@ -23,6 +31,6 @@ namespace EHS.Models
         public string dvsdt { get; set; }
         public string dveil { get; set; }
 
-        public virtual ICollection<GiangVien> GiangViens { get; set; }
+        //public virtual ICollection<GiangVien> GiangViens { get; set; }
     }
 }

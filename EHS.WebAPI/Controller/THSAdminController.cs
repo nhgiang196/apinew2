@@ -38,12 +38,13 @@ namespace EHS.WebAPI.Controller
                 throw new Exception(e.Message);
             }
         }
-
+        
         [Route("BoMon")]
-        [HttpPost]
-        public IHttpActionResult BoMon(string action,BoMon entity)
+        [HttpGet]
+        public IHttpActionResult BoMon(string action, string bm, string ten)
         {   
             try {
+                BoMon entity = new BoMon(bm, ten);
                 if (action == "create") { 
                     _context.BoMon.Add(entity);
                     _context.SaveChanges();
@@ -81,9 +82,10 @@ namespace EHS.WebAPI.Controller
         }
         [Route("LinhVucChuyenMon")]
         [HttpPost]
-        public IHttpActionResult LinhVucChuyenMon(string action, LinhVucChuyenMon entity)
+        public IHttpActionResult LinhVucChuyenMon(string action, string cm, string ten)
         {   
             try {
+                LinhVucChuyenMon entity = new LinhVucChuyenMon(cm, ten);
                 if (action == "create") {
                     _context.LinhVucChuyenMon.Add(entity);
                     _context.SaveChanges();
@@ -121,11 +123,12 @@ namespace EHS.WebAPI.Controller
         }
 
         [Route("NienKhoa")]
-        [HttpPost]
-        public IHttpActionResult NienKhoa(string action, NienKhoa entity)
+        [HttpGet]
+        public IHttpActionResult NienKhoa(string action, string nk, string ten, string nam, Nullable<System.DateTime> tungay, Nullable<System.DateTime> denngay)
         {
             try
             {
+                NienKhoa entity = new NienKhoa(nk, ten, nam, tungay, denngay);
                 if (action == "create")
                 {
                     _context.NienKhoa.Add(entity);
@@ -166,11 +169,12 @@ namespace EHS.WebAPI.Controller
        
 
         [Route("ChuyenNganh")]
-        [HttpPost]
-        public IHttpActionResult ChuyenNganh(string action, ChuyenNganh entity)
+        [HttpGet]
+        public IHttpActionResult ChuyenNganh(string action, string cn, string bm, string cnten)
         {
             try
-            {
+            {   
+                ChuyenNganh entity = new ChuyenNganh(cn, bm, cnten);
                 if (action == "create")
                 {
                     _context.ChuyenNganh.Add(entity);
@@ -196,9 +200,57 @@ namespace EHS.WebAPI.Controller
                     operationResult.Success = true;
                     operationResult.Message = "Record already Deleted Success";
                     operationResult.Caption = "Success";
-                    return Ok(operationResult);
+                    
 
                 }
+                return Ok(operationResult);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+            return Ok(operationResult);
+        }
+        [Route("DonViNgoai")]
+        [HttpPost]
+        public IHttpActionResult DonViNgoai(string action, string dv, string ten, string diachi, string sdt, string eil)
+        { 
+            try
+            {
+                DonViNgoai entity = new DonViNgoai(dv, ten, diachi, sdt, eil);
+            if (action == "create")
+                {
+                    
+                    
+                    _context.DonViNgoais.Add(entity);
+                    _context.SaveChanges();
+                    operationResult.Success = true;
+                    operationResult.Caption = "Success";
+                    operationResult.Message = "Record already Added Success";
+                    
+                }
+                else if (action == "update")
+                {
+                    var current = _context.DonViNgoais.Where(x => x.dv == entity.dv).FirstOrDefault();
+                    current = entity;
+                    _context.SaveChanges();
+                    operationResult.Success = true;
+                    operationResult.Message = "Record already Updated Success.";
+                    operationResult.Caption = "Success";
+                }
+                else if (action == "remove")
+                {
+                    var current = _context.DonViNgoais.Where(x => x.dv == entity.dv).FirstOrDefault();
+                    _context.DonViNgoais.Remove(current);
+                    _context.SaveChanges();
+                    operationResult.Success = true;
+                    operationResult.Message = "Record already Deleted Success";
+                    operationResult.Caption = "Success";
+
+
+                }
+                return Ok(operationResult);
             }
             catch (Exception e)
             {
@@ -208,7 +260,43 @@ namespace EHS.WebAPI.Controller
             return Ok(operationResult);
         }
 
-
+        [Route("GetAll")]
+        [HttpGet]
+        public IHttpActionResult GetAll(string table)
+        {
+            try
+            {
+                if (table == "BoMon")
+                {
+                    return Ok(_context.Set<BoMon>().ToList());
+                }
+                else if (table == "DonViNgoai")
+                {
+                    return Ok(_context.Set<DonViNgoai>().ToList());
+                }
+                else if (table == "ChuyenNganh")
+                {
+                    return Ok(_context.Set<ChuyenNganh>().ToList());
+                }
+                else if (table == "NienKhoa")
+                {
+                    return Ok(_context.Set<NienKhoa>().ToList());
+                }
+                else if (table == "LinhVucChuyenMon")
+                {
+                    return Ok(_context.Set<LinhVucChuyenMon>().ToList());
+                }
+                operationResult.Message = "Wrong table name";
+                operationResult.Caption = "Failed";
+                return Ok(operationResult);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+            return Ok(operationResult);
+        }
 
 
 
