@@ -15,12 +15,17 @@ namespace EHS.Models
         {
            
         }
+        public BoMon(string bm, string ten)
+        {
+            this.BM = bm;
+            this.TenBM = ten;
+        }
         [Column("BM")]
         [Key]
-
+        
         public string BM { get; set; }
         public string TenBM { get; set; }
-
+        public string status { get; set; }
         //public virtual ICollection<GiangVien> GiangViens { get; set; }
        
     }

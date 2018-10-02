@@ -15,14 +15,21 @@ namespace EHS.Models
         {
            
         }
+        public ChuyenNganh(string cn, string bm, string cnten)
+        {
+            this.CN = cn;
+            this.BM = bm;
+            this.cnten = cnten;
+        }
         [Column("CN")]
         [Key]
 
         public string CN { get; set; }
         public string BM { get; set; }
         public string cnten { get; set; }
+        public string status { get; set; }
 
-        public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
-        public virtual ICollection<HocCN> HocCNs { get; set; }
+        //public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
+        //public virtual ICollection<HocCN> HocCNs { get; set; }
     }
 }

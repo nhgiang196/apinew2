@@ -15,12 +15,17 @@ namespace EHS.Models
         {
            
         }
+        public LinhVucChuyenMon(string cm, string ten)
+        {
+            this.cm = cm;
+            this.cmten = ten;
+        }
         [Column("cm")]
         [Key]
         public string cm { get; set; }
         public string cmten { get; set; }
-    
-        public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
-        public virtual ICollection<GiangVien> GiangViens { get; set; }
+        public string status { get; set; }  
+        //public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
+        //public virtual ICollection<GiangVien> GiangViens { get; set; }
     }
 }
