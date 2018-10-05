@@ -17,15 +17,15 @@ namespace EHS.Models
         }
         public ChuyenNganh(string cn, string bm, string cnten)
         {
-            this.CN = cn;
-            this.BM = bm;
+            this.cn = cn;
+            this.bm = bm;
             this.cnten = cnten;
         }
-        [Column("CN")]
+        [Column("cn")]
         [Key]
 
-        public string CN { get; set; }
-        public string BM { get; set; }
+        public string cn { get; set; }
+        public string bm { get; set; }
         public string cnten { get; set; }
         public string status { get; set; }
 
