@@ -24,7 +24,11 @@ namespace EHS.Models
         [Key]
         public string cm { get; set; }
         public string cmten { get; set; }
+<<<<<<< HEAD
         public string status { get; set; }  
+=======
+    
+>>>>>>> 4588833c197e8e34680d030e8f0178258ffc3001
         //public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
         //public virtual ICollection<GiangVien> GiangViens { get; set; }
     }
