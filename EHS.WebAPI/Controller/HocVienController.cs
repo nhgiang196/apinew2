@@ -99,7 +99,7 @@ namespace EHS.WebAPI.Controller
             try
             {
                 var current = _context.HocVien.Where(x => x.hv == entity.hv).FirstOrDefault();
-                current.Status = "X";
+                current.status = "X";
                 //_context.HocVien.Remove(current);
                 _context.SaveChanges();
             }

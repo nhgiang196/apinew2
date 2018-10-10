@@ -141,11 +141,11 @@ namespace EHS.WebAPI.Controller
         }
         [Route("FindById")]
         [HttpPost]
-        public IHttpActionResult FindById(string gv)
+        public IHttpActionResult FindById(GiangVien gv)
         {
             var data = oAC.ExecuteStoredProcedure("GetByID",
                 new string[] { "table", "value" },
-                new object[] { "DeTaiLuanVan", gv });
+                new object[] { "DeTaiLuanVan", gv.gv });
             Dictionary<Object, Object> values = new Dictionary<object, object>();
             values.Add("Header", _helper.ConvertJson(data.Tables[0]));
             values.Add("Details", _helper.ConvertJson(data.Tables[1]));
