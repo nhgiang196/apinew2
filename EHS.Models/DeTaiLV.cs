@@ -29,8 +29,8 @@ namespace EHS.Models
         public string cn{ get; set; }
         public string hv { get; set; }
         public string cm { get; set; }
-        public virtual ICollection<HDDC> HDDCs { get; set; }
-        public virtual ICollection<HDLV> HDLVs { get; set; }
+        public string status { get; set; }
         public virtual ICollection<HuongDan> HuongDans { get; set; }
     }
 }
+

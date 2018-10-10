@@ -75,9 +75,6 @@ namespace EHS.WebAPI.Controller
                     current.status = "X";
                     _context.SaveChanges();
                     operationResult.Message = "Record already Deleted Success";
-                    
-                    
-
                 }
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -131,11 +128,11 @@ namespace EHS.WebAPI.Controller
 
         [Route("NienKhoa")]
         [HttpGet]
-        public IHttpActionResult NienKhoa(string action, string nk, string ten, string nam, Nullable<System.DateTime> tungay, Nullable<System.DateTime> denngay)
+        public IHttpActionResult NienKhoa(string action, string nk, string nkten, string nknam, Nullable<System.DateTime> nktungay, Nullable<System.DateTime> nkdenngay)
         {
             try
             {
-                NienKhoa entity = new NienKhoa(nk, ten, nam, tungay, denngay);
+                NienKhoa entity = new NienKhoa(nk, nkten, nknam, nktungay, nkdenngay);
                 if (action == "create")
                 {
                     entity.status = "0";
@@ -219,11 +216,11 @@ namespace EHS.WebAPI.Controller
         }
         [Route("DonViNgoai")]
         [HttpGet]
-        public IHttpActionResult DonViNgoai(string action, string dv, string ten, string diachi, string sdt, string eil)
+        public IHttpActionResult DonViNgoai(string action, string dv, string dvten, string dvdiachi, string dvsdt, string dveil)
         { 
             try
             {
-                DonViNgoai entity = new DonViNgoai(dv, ten, diachi, sdt, eil);
+                DonViNgoai entity = new DonViNgoai(dv, dvten, dvdiachi, dvsdt, dveil);
             if (action == "create")
                 {
 
@@ -236,10 +233,10 @@ namespace EHS.WebAPI.Controller
                 else if (action == "update")
                 {
                     var current = _context.DonViNgoais.Where(x => x.dv == entity.dv).FirstOrDefault();
-                    current.dvten = ten;
-                    current.dvdiachi = diachi;
-                    current.dvsdt = sdt;
-                    current.dveil = eil;
+                    current.dvten = dvten;
+                    current.dvdiachi = dvdiachi;
+                    current.dvsdt = dvsdt;
+                    current.dveil = dveil;
                     _context.SaveChanges();
 
                     operationResult.Message = "Record already Updated Success.";

@@ -30,10 +30,9 @@ namespace EHS.Models
 
         public string bm { get; set; }
         public string cd { get; set; }
-        public virtual ICollection<CTHDDC> CTHDDCs { get; set; }
-        public virtual ICollection<CTHDLV> CTHDLVs { get; set; }
         public string dv { get; set; }
-        public virtual ICollection<HuongDan> HuongDans { get; set; }
+        public string status { get; set; }
+
         public virtual ICollection<CMGV> CMGVs { get; set; }
     }
 }

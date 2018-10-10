@@ -28,8 +28,8 @@ namespace EHS.Models
         public string hveil { get; set; }
         public string hvhinhanh { get; set; }
         public string hvtkhau { get; set; }
+        public string status { get; set; }
 
-        public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
         public virtual ICollection<HocCN> HocCNs { get; set; }
     }
 }
