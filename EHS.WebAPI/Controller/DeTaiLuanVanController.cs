@@ -123,7 +123,7 @@ namespace EHS.WebAPI.Controller
             try
             {
                 object[] outParameters = null;
-                var dt = oAC.ExecuteStoredProcedure("SearchDeTaiLuanVan",
+                var dt = oAC.ExecuteStoredProcedure("SearchLuanVan",
                   new string[] { "lv", "cm", "qd", "cn", "hvten", "lvten" }
                 , new object[] { lv, cm, qd, cn, hvten, lvten }).Tables[0];
                 //, new string[] { "Count" }, new DbType[] { DbType.Int32 }, out outParameters).Tables[0];
