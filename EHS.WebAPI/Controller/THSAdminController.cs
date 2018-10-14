@@ -25,12 +25,12 @@ namespace EHS.WebAPI.Controller
         //--------------BO MON
         [Route("GetBasic")]
         [HttpGet]
-        public IHttpActionResult GetBasic(string Table)
+        public IHttpActionResult GetBasic(string Table,string bm)
         {
             try
             {
                 var dt = oAC.ExecuteStoredProcedure("GetBasic",
-                     new string[] { "Table" }, new object[] { Table }).Tables[0];
+                     new string[] { "Table","bm" }, new object[] { Table,bm }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)
