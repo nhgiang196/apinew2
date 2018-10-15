@@ -21,7 +21,5 @@ namespace EHS.Models
         public string gv { get; set; }
         public string vaitrohuongdan { get; set; }
 
-        public virtual DeTaiLV DeTaiLV { get; set; }
-        public virtual GiangVien GiangVien { get; set; }
     }
 }
