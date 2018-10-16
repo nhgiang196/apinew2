@@ -30,6 +30,8 @@ namespace EHS.Models
         public string hv { get; set; }
         public string cm { get; set; }
         public string status { get; set; }
+        public string createby { get; set; }
+        public string modifyby { get; set; }
         public virtual ICollection<HuongDan> HuongDans { get; set; }
     }
 }

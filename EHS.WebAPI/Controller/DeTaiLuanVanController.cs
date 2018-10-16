@@ -30,8 +30,8 @@ namespace EHS.WebAPI.Controller
         public IHttpActionResult Add(DeTaiLV g)
         {   try {
             var dt = oAC.ExecuteStoredProcedure("CUD_DeTaiLV",
-                    new string[] { "action", "lv", "cm", "qd", "cn", "hv", "lvloai", "nk", "lvten", "lvtomtat", "lvngaynop", "lvluutru" },
-                    new object[] { "create", null, g.cm, g.qd, g.cn, g.hv, g.lvloai, g.nk, g.lvten, g.lvtomtat, g.lvngaynop, g.lvluutru}).Tables[0];
+                    new string[] { "action", "lv", "cm", "qd", "cn", "hv", "lvloai", "nk", "lvten", "lvtomtat", "lvngaynop", "lvluutru", "user" },
+                    new object[] { "create", null, g.cm, g.qd, g.cn, g.hv, g.lvloai, g.nk, g.lvten, g.lvtomtat, g.lvngaynop, g.lvluutru, g.createby}).Tables[0];
                 string newlv = dt.Rows[0]["lv"].ToString();
 
 
@@ -68,8 +68,8 @@ namespace EHS.WebAPI.Controller
             try
             {
                 oAC.ExecuteStoredProcedure("CUD_DeTaiLV",
-                    new string[] { "action", "lv", "cm", "qd", "cn", "hv", "lvloai", "nk", "lvten", "lvtomtat", "lvngaynop", "lvluutru" },
-                    new object[] { "create", null, g.cm, g.qd, g.cn, g.hv, g.lvloai, g.nk, g.lvten, g.lvtomtat, g.lvngaynop, g.lvluutru });
+                    new string[] { "action", "lv", "cm", "qd", "cn", "hv", "lvloai", "nk", "lvten", "lvtomtat", "lvngaynop", "lvluutru", "user" },
+                    new object[] { "update", g.lv, g.cm, g.qd, g.cn, g.hv, g.lvloai, g.nk, g.lvten, g.lvtomtat, g.lvngaynop, g.lvluutru, g.createby });
                 if (g.HuongDans != null)
                 {
                     oAC.ExecuteStoredProcedure("CRUD_HuongDan",
@@ -101,8 +101,8 @@ namespace EHS.WebAPI.Controller
             try
             {
                 var current = _context.DeTaiLVs.Where(x => x.lv == entity.lv).FirstOrDefault();
-                //current.Status = "X";
-                _context.DeTaiLVs.Remove(current);
+                current.status ="X";
+                //_context.DeTaiLVs.Remove(current);
                 _context.SaveChanges();
             }
             catch (Exception e)
