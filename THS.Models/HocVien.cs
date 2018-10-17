@@ -29,6 +29,7 @@ namespace THS.Models
         public string hvhinhanh { get; set; }
         public string hvtkhau { get; set; }
         public string status { get; set; }
+        public string createby { get; set; }
 
         public virtual ICollection<HocCN> HocCNs { get; set; }
     }

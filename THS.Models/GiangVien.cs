@@ -32,6 +32,7 @@ namespace THS.Models
         public string cd { get; set; }
         public string dv { get; set; }
         public string status { get; set; }
+        public string createby { get; set; }
 
         public virtual ICollection<CMGV> CMGVs { get; set; }
     }

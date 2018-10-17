@@ -23,7 +23,8 @@ namespace THS.Models
         public Nullable<System.DateTime> hdngayketthuc { get; set; }
         public string hddiadem { get; set; }
         public Nullable<System.DateTime> hdthoigian { get; set; }
-
+        public string status { get; set; }
+        public string createby { get; set; }
         public virtual ICollection<CTHDLV> CTHDLVs { get; set; }
         public virtual ICollection<HDLV> HDLVs { get; set; }
     }
