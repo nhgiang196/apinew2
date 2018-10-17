@@ -110,7 +110,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EHS.Models\THS.Models.csproj">
+    <ProjectReference Include="..\THS.Models\THS.Models.csproj">
       <Project>{5a0f7e20-c246-40c7-ad6a-cc8ada2a8ce1}</Project>
       <Name>THS.Models</Name>
     </ProjectReference>
