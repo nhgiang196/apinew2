@@ -21,6 +21,8 @@ namespace EHS.WebAPI.Controller
         HelperBiz _helper = new HelperBiz();
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
+        
+
         /// <summary>
         /// List all Object
         /// </summary>
@@ -67,6 +69,7 @@ namespace EHS.WebAPI.Controller
         {
             try
             {
+                
                 oAC.ExecuteStoredProcedure("CUD_DeTaiLV",
                     new string[] { "action", "lv", "cm", "qd", "cn", "hv", "lvloai", "nk", "lvten", "lvtomtat", "lvngaynop", "lvluutru", "user" },
                     new object[] { "update", g.lv, g.cm, g.qd, g.cn, g.hv, g.lvloai, g.nk, g.lvten, g.lvtomtat, g.lvngaynop, g.lvluutru, g.createby });
@@ -118,19 +121,15 @@ namespace EHS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string lv, string cm, string qd, string cn, string hvten, string lvten)
+        public IHttpActionResult Search(string lv, string cm, string qd, string cn, string hv, string bm, string status)
         {
             try
             {
+
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchLuanVan",
-                  new string[] { "lv", "cm", "qd", "cn", "hvten", "lvten" }
-                , new object[] { lv, cm, qd, cn, hvten, lvten }).Tables[0];
-                //, new string[] { "Count" }, new DbType[] { DbType.Int32 }, out outParameters).Tables[0];
-                //Dictionary<string, Object> values = new Dictionary<string, object>();
-                //values.Add("TableData", _helper.ConvertJson(dt));
-                //values.Add("TableCount", outParameters);
-                //return Ok(values);
+                  new string[] { "lv","hv", "qd", "cm", "cn", "bm","status" }
+                , new object[] { lv, hv, qd, cm, cn, bm, status  }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)
