@@ -30,8 +30,8 @@ namespace THS.WebAPI.Controller
         public IHttpActionResult Add(GiangVien g)
         {   try {
                 var dt = oAC.ExecuteStoredProcedure("CUD_GiangVien",
-                    new string[] { "action", "gv", "dv", "cd", "bm", "gvhoten", "gvgioitinh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "gvtkhau" },
-                    new object[] { "create", g.gv, g.dv,g.cd,g.bm, g.gvhoten, g.gvgioitinh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gvhinhanh, g.gvtkhau}).Tables[0];
+                    new string[] { "action", "gv", "dv", "cd", "bm", "gvhoten", "gvgioitinh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "gvtkhau", "user" },
+                    new object[] { "create", g.gv, g.dv,g.cd,g.bm, g.gvhoten, g.gvgioitinh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gvhinhanh, g.gvtkhau, g.createby}).Tables[0];
                 string newgv = dt.Rows[0]["gv"].ToString();
 
                 
@@ -67,8 +67,8 @@ namespace THS.WebAPI.Controller
             try
             {
                 oAC.ExecuteStoredProcedure("CUD_GiangVien",
-                new string[] { "action",},
-                new object[] { "update",});
+                new string[] { "action", "gv", "dv", "cd", "bm", "gvhoten", "gvgioitinh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "gvtkhau", "user" },
+                new object[] { "update", g.gv, g.dv,g.cd,g.bm, g.gvhoten, g.gvgioitinh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gvhinhanh, g.gvtkhau, g.createby});
                 if (g.CMGVs != null)
                 {
                     oAC.ExecuteStoredProcedure("CRUD_CMGV",

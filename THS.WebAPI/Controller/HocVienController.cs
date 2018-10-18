@@ -30,8 +30,8 @@ namespace THS.WebAPI.Controller
         public IHttpActionResult Add(HocVien h)
         {   try {
                 var dt = oAC.ExecuteStoredProcedure("CUD_HocVien",
-                    new string[] { "action", "hv", "hvhoten", "hvgioitinh", "hvngaysinh", "hvngaydkdt", "hvngaydkbv", "hvquequan", "hvsodienthoai", "hveil", "hvhinhanh", "hvtkhau" },
-                    new object[] { "create", null, h.hvhoten, h.hvgioitinh, h.hvngaysinh, h.hvngaydkdt, h.hvngaydkbv, h.hvquequan, h.hvsodienthoai, h.hveil, h.hvhinhanh, h.hvtkhau }).Tables[0];
+                    new string[] { "action", "hv", "hvhoten", "hvgioitinh", "hvngaysinh", "hvngaydkdt", "hvngaydkbv", "hvquequan", "hvsodienthoai", "hveil", "hvhinhanh", "hvtkhau","user" },
+                    new object[] { "create", null, h.hvhoten, h.hvgioitinh, h.hvngaysinh, h.hvngaydkdt, h.hvngaydkbv, h.hvquequan, h.hvsodienthoai, h.hveil, h.hvhinhanh, h.hvtkhau, h.createby }).Tables[0];
                 string newhv = dt.Rows[0]["hv"].ToString();
                 
                 if (h.HocCNs != null)
@@ -66,8 +66,8 @@ namespace THS.WebAPI.Controller
             try
             {
                 oAC.ExecuteStoredProcedure("CUD_HocVien",
-                new string[] { "action", "hv", "hvhoten", "hvgioitinh", "hvngaysinh", "hvngaydkdt", "hvngaydkbv", "hvquequan", "hvsodienthoai", "hveil", "hvhinhanh", "hvtkhau" },
-                new object[] { "update", h.hv, h.hvhoten, h.hvgioitinh, h.hvngaysinh, h.hvngaydkdt, h.hvngaydkbv, h.hvquequan, h.hvsodienthoai, h.hveil, h.hvhinhanh, h.hvtkhau });
+                new string[] { "action", "hv", "hvhoten", "hvgioitinh", "hvngaysinh", "hvngaydkdt", "hvngaydkbv", "hvquequan", "hvsodienthoai", "hveil", "hvhinhanh", "hvtkhau","user" },
+                new object[] { "update", h.hv, h.hvhoten, h.hvgioitinh, h.hvngaysinh, h.hvngaydkdt, h.hvngaydkbv, h.hvquequan, h.hvsodienthoai, h.hveil, h.hvhinhanh, h.hvtkhau, h.createby });
                 if (h.HocCNs != null)
                 {
                     oAC.ExecuteStoredProcedure("CRUD_HocCN",
