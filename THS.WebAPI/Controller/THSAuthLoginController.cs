@@ -35,6 +35,7 @@ namespace THS.WebAPI.Controller
                 if (dt.Rows.Count > 0)
                 {
                     var result = new { username = username, nickname = dt.Rows[0]["nickname"], email = dt.Rows[0]["email"], bm = dt.Rows[0]["bm"] };
+                    Console.WriteLine("ValidateLogin: "+username+" - "+result.nickname );
                     return Ok(result);
                 }
                 var result1 = new {};

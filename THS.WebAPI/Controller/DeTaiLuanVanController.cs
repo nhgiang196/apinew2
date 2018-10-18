@@ -46,7 +46,7 @@ namespace THS.WebAPI.Controller
                             new object[] { "create", newlv, item.gv, item.vaitrohuongdan});
                     }
                 }
-
+                Console.WriteLine("Added-detailuanvan: " + newlv);
             }
             catch (Exception e)
             {
@@ -85,6 +85,7 @@ namespace THS.WebAPI.Controller
                             new object[] { "create", g.lv,item.gv, item.vaitrohuongdan});
                     }
                 }
+                Console.WriteLine("Updated-detailuanvan: " + g.lv);
             }
             catch (Exception e)
             {
@@ -107,6 +108,7 @@ namespace THS.WebAPI.Controller
                 current.status ="X";
                 //_context.DeTaiLVs.Remove(current);
                 _context.SaveChanges();
+                Console.WriteLine("Deleted-detailuanvan: " + entity.lv);
             }
             catch (Exception e)
             {
