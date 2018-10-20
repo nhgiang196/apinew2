@@ -23,6 +23,7 @@ namespace THS.Models
         }
         [Column("cn")]
         [Key]
+        public string action { get; set; }
         public string cn { get; set; }
         public string bm { get; set; }
         public string cnten { get; set; }

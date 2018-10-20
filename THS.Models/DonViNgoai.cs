@@ -25,6 +25,7 @@ namespace THS.Models
         }
         [Column("dv")]
         [Key]
+        public string action { get; set; }
         public string dv { get; set; }
         public string dvten { get; set; }
         public string dvdiachi { get; set; }
