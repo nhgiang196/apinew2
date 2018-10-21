@@ -45,7 +45,7 @@ namespace THS.WebAPI.Controller
         public IHttpActionResult BoMon(BoMon dt)
         {   
             try {
-                oAC.ExecuteStoredProcedure("CUD_BoMon", new string[] { "action", "bm", "tenbm" }, new object[] { dt.action, dt.bm, dt.tenbm });
+                oAC.ExecuteStoredProcedure("CUD_BoMon", new string[] { "action", "bm", "bmten" }, new object[] { dt.action, dt.bm, dt.tenbm });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -109,7 +109,7 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "cnten" }, new object[] { dt.action, dt.cn, dt.cnten });
+                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn","bm","cnten" }, new object[] { dt.action, dt.cn,dt.bm, dt.cnten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -151,7 +151,7 @@ namespace THS.WebAPI.Controller
                 if (table == "BoMon")
                 {
                     var dt = oAC.ExecuteStoredProcedure("CUD_BoMon",
-                            new string[] { "action", "bm","tenbm" },
+                            new string[] { "action", "bm", "bmten" },
                             new object[] { "select", null, null }).Tables[0];
 
                     return Ok(dt);
