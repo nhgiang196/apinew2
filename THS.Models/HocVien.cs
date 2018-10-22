@@ -17,6 +17,7 @@ namespace THS.Models
         }
         [Column("hv")]
         [Key]
+        public string action { get; set; }
         public string hv { get; set; }
         public string hvhoten { get; set; }
         public string hvgioitinh { get; set; }

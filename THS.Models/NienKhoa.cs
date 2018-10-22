@@ -25,6 +25,7 @@ namespace THS.Models
         }
         [Column("nk")]
         [Key]
+        public string action { get; set; }
         public string nk { get; set; }
         public string nkten { get; set; }
         public string nknam { get; set; }

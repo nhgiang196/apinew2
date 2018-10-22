@@ -15,13 +15,9 @@ namespace THS.Models
         {
            
         }
-        public LinhVucChuyenMon(string cm, string ten)
-        {
-            this.cm = cm;
-            this.cmten = ten;
-        }
         [Column("cm")]
         [Key]
+        public string action { get; set; }
         public string cm { get; set; }
         public string cmten { get; set; }
       public string status { get; set; }  

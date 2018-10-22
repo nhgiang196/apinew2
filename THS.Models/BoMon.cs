@@ -22,7 +22,7 @@ namespace THS.Models
         }
         [Column("BM")]
         [Key]
-        
+        public string action { get; set; }
         public string bm { get; set; }
         public string tenbm { get; set; }
         public string status { get; set; }
