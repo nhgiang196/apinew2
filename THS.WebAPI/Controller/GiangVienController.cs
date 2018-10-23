@@ -21,6 +21,10 @@ namespace THS.WebAPI.Controller
         HelperBiz _helper = new HelperBiz();
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
+        string store1 = "CUD_GiangVien";
+        string[] parram1 = {"action","gv","dv","bm","gvhoten","gvgioitinh","gvchucdanh","gvnamcongtac","gvquoctich","gvngaysinh","gvnoio","gvsodienthoai","gveil","gvhinhanh","user"};
+        string store2 = "CRUD_CMGV";
+        string[] parram2 = { "action", "gv", "cm" };
         /// <summary>
         /// List all Object
         /// </summary>
@@ -29,9 +33,8 @@ namespace THS.WebAPI.Controller
         [HttpPost]
         public IHttpActionResult Add(GiangVien g)
         {   try {
-                var dt = oAC.ExecuteStoredProcedure("CUD_GiangVien",
-                    new string[] { "action", "gv", "dv", "cd", "bm", "gvhoten", "gvgioitinh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "gvtkhau", "user" },
-                    new object[] { "create", g.gv, g.dv,g.cd,g.bm, g.gvhoten, g.gvgioitinh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gvhinhanh, g.gvtkhau, g.createby}).Tables[0];
+                var dt = oAC.ExecuteStoredProcedure( store1, parram1,
+                    new object[] { "create", g.gv, g.dv, g.bm, g.gvhoten, g.gvgioitinh, g.gvchucdanh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gveil, g.gvhinhanh, g.createby }).Tables[0];
                 string newgv = dt.Rows[0]["gv"].ToString();
 
                 
@@ -39,8 +42,8 @@ namespace THS.WebAPI.Controller
                 {
                     foreach (var item in g.CMGVs)
                     {
-                        oAC.ExecuteStoredProcedure("CRUD_CMGV",
-                            new string[] { "action", "gv", "cm"},
+                        oAC.ExecuteStoredProcedure( store2, parram2,
+                            
                             new object[] { "create", newgv, item.cm });
                     }
                 }
@@ -66,18 +69,16 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_GiangVien",
-                new string[] { "action", "gv", "dv", "cd", "bm", "gvhoten", "gvgioitinh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "gvtkhau", "user" },
-                new object[] { "update", g.gv, g.dv,g.cd,g.bm, g.gvhoten, g.gvgioitinh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai, g.gvhinhanh, g.gvtkhau, g.createby});
+                //string[] parram1 = { "action", "gv", "dv", "bm", "gvhoten", "gvgioitinh", "gvchucdanh", "gvnamcongtac", "gvquoctich", "gvngaysinh", "gvnoio", "gvsodienthoai", "gvhinhanh", "user" };
+                oAC.ExecuteStoredProcedure( store1, parram1,
+                new object[] { "update", g.gv, g.dv, g.bm, g.gvhoten, g.gvgioitinh, g.gvchucdanh, g.gvnamcongtac, g.gvquoctich, g.gvngaysinh, g.gvnoio, g.gvsodienthoai,g.gveil, g.gvhinhanh, g.createby });
                 if (g.CMGVs != null)
                 {
-                    oAC.ExecuteStoredProcedure("CRUD_CMGV",
-                            new string[] { "action", "gv", "cm" },
+                    oAC.ExecuteStoredProcedure(store2, parram2,
                             new object[] { "deleteall", g.gv, null });
                     foreach (var item in g.CMGVs)
                     {
-                        oAC.ExecuteStoredProcedure("CRUD_CMGV",
-                            new string[] { "action", "gv","cm" },
+                        oAC.ExecuteStoredProcedure(store2, parram2,
                             new object[] { "create", g.gv, item.cm});
                     }
                 }
@@ -99,10 +100,8 @@ namespace THS.WebAPI.Controller
 
             try
             {
-                var current = _context.GiangViens.Where(x => x.gv == entity.gv).FirstOrDefault();
-                //current.Status = "X";
-                _context.GiangViens.Remove(current);
-                _context.SaveChanges();
+                oAC.ExecuteStoredProcedure(store1, parram1,
+                    new object[]{"delete", entity.gv, null,null,null,null,null,null,null,null,null,null,null,null,null});
             }
             catch (Exception e)
             {
@@ -117,14 +116,14 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string gv, string dv, string cd, string bm, string gvhoten, string gvquoctich, string cm)
+        public IHttpActionResult Search(string gv, string dv, string bm, string cm, string gvquoctich, string status)
         {
             try
             {
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchGiangVien",
-                  new string[] { "gv", "dv", "cd", "bm", "gvhoten", "gvquoctich", "cm" }
-                , new object[] { gv, dv, cd, bm, gvhoten, gvquoctich, cm }).Tables[0];
+                  new string[] { "gv","dv","bm","cm","gvquoctich","status" }
+                , new object[] { gv,  dv,  bm,  cm,  gvquoctich,  status}).Tables[0];
                 //, new string[] { "Count" }, new DbType[] { DbType.Int32 }, out outParameters).Tables[0];
                 //Dictionary<string, Object> values = new Dictionary<string, object>();
                 //values.Add("TableData", _helper.ConvertJson(dt));
@@ -140,11 +139,11 @@ namespace THS.WebAPI.Controller
         }
         [Route("FindById")]
         [HttpPost]
-        public IHttpActionResult FindById(string gv)
+        public IHttpActionResult FindById(GiangVien gv)
         {
             var data = oAC.ExecuteStoredProcedure("GetByID",
                 new string[] { "table", "value" },
-                new object[] { "GiangVien", gv });
+                new object[] { "GiangVien", gv.gv });
             Dictionary<Object, Object> values = new Dictionary<object, object>();
             values.Add("Header", _helper.ConvertJson(data.Tables[0]));
             values.Add("Details", _helper.ConvertJson(data.Tables[1]));

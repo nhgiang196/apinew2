@@ -29,10 +29,11 @@ namespace THS.Models
         public string gvtkhau { get; set; }
 
         public string bm { get; set; }
-        public string cd { get; set; }
+        public string gvchucdanh { get; set; }
         public string dv { get; set; }
         public string status { get; set; }
         public string createby { get; set; }
+        public string gveil { get; set; }
 
         public virtual ICollection<CMGV> CMGVs { get; set; }
     }
