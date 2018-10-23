@@ -21,6 +21,12 @@ namespace THS.WebAPI.Controller
         HelperBiz _helper = new HelperBiz();
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
+        string store1 = "CUD_HDBVLV";
+        string store2 = "CRUD_CTHDLV";
+        string store3 = "CRUD_HDLV";
+        string[] parram1 = { "action", "hd", "hdten", "hdngaythanhlap", "hdngayketthuc", "hdiadiem", "hdthoigian" };
+        string[] parram2 = { "action", "hd", "gv", "vaitro" };
+        string[] parram3 = { "action", "hd", "lv", "diem", "ykien", "ketqua" };
         /// <summary>
         /// List all Object
         /// </summary>
@@ -30,8 +36,8 @@ namespace THS.WebAPI.Controller
         public IHttpActionResult Add(HDBVLV g)
         {  
             try {
-                var dt = oAC.ExecuteStoredProcedure("CUD_HDBVLV",
-                    new string[] { "action", "hd","hdten","hdngaythanhlap","hdngayketthuc","hdiadiem","hdthoigian"},
+                var dt = oAC.ExecuteStoredProcedure(store1, parram1,
+                     
                     new object[] { "create",  g.hd, g.hdten, g.hdngaythanhlap, g.hdngayketthuc, g.hddiadem, g.hdthoigian}).Tables[0];
                 string newhd = dt.Rows[0]["hd"].ToString();
 
@@ -40,8 +46,8 @@ namespace THS.WebAPI.Controller
                 {
                     foreach (var item in g.CTHDLVs)
                     {
-                        oAC.ExecuteStoredProcedure("CRUD_CTHDLV",
-                            new string[] { "action", "hd", "gv", "vaitro"},
+                        oAC.ExecuteStoredProcedure(
+                            store2, parram2,
                             new object[] { "create", newhd, item.gv, item.vaitro});
                     }
                 }
@@ -50,8 +56,8 @@ namespace THS.WebAPI.Controller
                 {
                     foreach (var item in g.HDLVs)
                     {
-                        oAC.ExecuteStoredProcedure("CRUD_HDLV",
-                            new string[] { "action", "hd","lv","diem","ykien","ketqua" },
+                        oAC.ExecuteStoredProcedure(
+                            store3,parram3,
                             new object[] { "create", newhd, item.lv, item.diem, item.ykien, item.ketqua});
                     }
                 }
@@ -77,35 +83,35 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                var dt = oAC.ExecuteStoredProcedure("CUD_HDBVLV",
-                    new string[] { "action", "hd", "hdten", "hdngaythanhlap", "hdngayketthuc", "hdiadiem", "hdthoigian" },
+                var dt = oAC.ExecuteStoredProcedure(
+                    store1, parram1,
                     new object[] { "update", g.hd, g.hdten, g.hdngaythanhlap, g.hdngayketthuc, g.hddiadem, g.hdthoigian }).Tables[0];
                 string newhd = dt.Rows[0]["hd"].ToString();
 
 
                 if (g.CTHDLVs != null)
                 {
-                    oAC.ExecuteStoredProcedure("CRUD_CTHDLV",
-                            new string[] { "action", "hd", "gv", "vaitro" },
+                    oAC.ExecuteStoredProcedure(
+                        store2, parram2,
                             new object[] { "deletall", g.hd, null, null });
                     foreach (var item in g.CTHDLVs)
                     {
 
-                        oAC.ExecuteStoredProcedure("CRUD_CTHDLV",
-                            new string[] { "action", "hd", "gv", "vaitro" },
+                        oAC.ExecuteStoredProcedure(
+                            store2, parram2,
                             new object[] { "create", g.hd, item.gv, item.vaitro });
                     }
                 }
 
                 if (g.HDLVs != null)
                 {
-                    oAC.ExecuteStoredProcedure("CRUD_HDLV",
-                            new string[] { "action", "hd", "lv", "diem", "ykien", "ketqua" },
+                    oAC.ExecuteStoredProcedure(
+                        store3, parram3,
                             new object[] { "deleteall", g.hd, null, null, null, null });
                     foreach (var item in g.HDLVs)
                     {
-                        oAC.ExecuteStoredProcedure("CRUD_HDLV",
-                            new string[] { "action", "hd", "lv", "diem", "ykien", "ketqua" },
+                        oAC.ExecuteStoredProcedure(
+                            store3, parram3,
                             new object[] { "create", g.hd, item.lv, item.diem, item.ykien, item.ketqua });
                     }
                 }
@@ -127,10 +133,8 @@ namespace THS.WebAPI.Controller
 
             try
             {
-                var current = _context.HDBVLV.Where(x => x.hd == entity.hd).FirstOrDefault();
-                //current.Status = "X";
-                _context.HDBVLV.Remove(current);
-                _context.SaveChanges();
+                oAC.ExecuteStoredProcedure(store1, parram1,
+                    new object[] {"delete", entity.hd, null, null, null, null, null, null, null, null, null, null, null });
             }
             catch (Exception e)
             {
@@ -145,19 +149,14 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string hd, string hdten)
+        public IHttpActionResult Search(string hd, string tungay, string denngay)
         {
             try
             {
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchHDLV",
-                  new string[] { "hd", "hdten" }
-                , new object[] { hd, hdten }).Tables[0];
-                //, new string[] { "Count" }, new DbType[] { DbType.Int32 }, out outParameters).Tables[0];
-                //Dictionary<string, Object> values = new Dictionary<string, object>();
-                //values.Add("TableData", _helper.ConvertJson(dt));
-                //values.Add("TableCount", outParameters);
-                //return Ok(values);
+                  new string[] { "hd", "tungay", "denngay" }
+                , new object[] { hd, tungay, denngay }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)
@@ -168,11 +167,11 @@ namespace THS.WebAPI.Controller
         }
         [Route("FindById")]
         [HttpPost]
-        public IHttpActionResult FindById(string lv)
+        public IHttpActionResult FindById(DeTaiLV lv)
         {
             var data = oAC.ExecuteStoredProcedure("GetByID",
                 new string[] { "table", "value" },
-                new object[] { "HDBVLV", lv });
+                new object[] { "HDBVLV", lv.lv });
             Dictionary<Object, Object> values = new Dictionary<object, object>();
             values.Add("Header", _helper.ConvertJson(data.Tables[0]));
             values.Add("CTHDLV", _helper.ConvertJson(data.Tables[1]));

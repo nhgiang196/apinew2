@@ -11,7 +11,7 @@ namespace THS.WebAPI.Helper
     class MailSender
     {
         public MailSender() { }
-        public void sendMail(string toemail, string subject,string body,  )
+        public void sendMail(string toemail, string subject,string body )
         {
 
                 MailMessage mail = new MailMessage();
