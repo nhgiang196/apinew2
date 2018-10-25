@@ -20,8 +20,9 @@ namespace THS.Models
         public string dc { get; set; }
         public string gv { get; set; }
         public string vaitro { get; set; }
+        
 
 
-        public virtual HDBVDC HDBVDC { get; set; }
+        //public virtual HDBVDC HDBVDC { get; set; }
     }
 }

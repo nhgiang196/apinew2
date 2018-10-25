@@ -19,13 +19,13 @@ namespace THS.Models
         [Key]
         public string dc { get; set; }
         public string lv { get; set; }
-        public Nullable<short> lanbaove { get; set; }
+        public Nullable<int> lanbaove { get; set; }
         public Nullable<float> diem { get; set; }
         public string ykien { get; set; }
         public string ketqua { get; set; }
         public Nullable<int> sophieudat { get; set; }
-
-        public virtual DeTaiLV DeTaiLV { get; set; }
-        public virtual HDBVDC HDBVDC { get; set; }
+		
+        //public virtual DeTaiLV DeTaiLV { get; set; }
+        //public virtual HDBVDC HDBVDC { get; set; }
     }
 }

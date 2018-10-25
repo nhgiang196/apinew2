@@ -24,9 +24,9 @@ namespace THS.WebAPI.Controller
         string store1 = "CUD_HDBVDC";
         string store2 = "CRUD_CTHDDC";
         string store3 = "CRUD_HDDC";
-        string[] parram1 = { "action", "dc", "hdten", "hdngaythanhlap", "hdngayketthuc", "hdiadiem", "hdthoigian" };
+        string[] parram1 = { "action", "dc", "dcten", "dcngaythanhlap", "dcngayketthuc", "dcdiadiem", "dcthoigian", "user" };
         string[] parram2 = { "action", "dc", "gv", "vaitro" };
-        string[] parram3 = { "action", "dc", "lv", "diem", "ykien", "ketqua" };
+        string[] parram3 = { "action", "dc", "lv", "lanbaove", "diem", "ykien", "ketqua", "sophieudat" };
         /// <summary>
         /// List all Object
         /// </summary>
@@ -39,7 +39,7 @@ namespace THS.WebAPI.Controller
             {
                 var dt = oAC.ExecuteStoredProcedure(store1, parram1,
 
-                    new object[] { "create", g.dc, g.dcten, g.dcngaythanhlap, g.dcngayketthuc, g.dcdiadiem, g.dcthoigian }).Tables[0];
+                    new object[] { "create", g.dc, g.dcten, g.dcngaythanhlap, g.dcngayketthuc, g.dcdiadiem, g.dcthoigian, g.createby }).Tables[0];
                 string newhd = dt.Rows[0]["dc"].ToString();
 
 
@@ -55,11 +55,11 @@ namespace THS.WebAPI.Controller
 
                 if (g.HDDCs != null)
                 {
-                    foreach (var item in g.HDDCs)
+                    foreach (var item2 in g.HDDCs)
                     {
                         oAC.ExecuteStoredProcedure(
                             store3, parram3,
-                            new object[] { "create", newhd, item.lv, item.diem, item.ykien, item.ketqua });
+                            new object[] { "create", newhd, item2.lv, item2.lanbaove, item2.diem, item2.ykien, item2.ketqua, item2.sophieudat });
                     }
                 }
             }
@@ -84,17 +84,16 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                var dt = oAC.ExecuteStoredProcedure(
+                oAC.ExecuteStoredProcedure(
                     store1, parram1,
-                    new object[] { "update", g.dc, g.dcten, g.dcngaythanhlap, g.dcngayketthuc, g.dcdiadiem, g.dcthoigian }).Tables[0];
-                string newhd = dt.Rows[0]["dc"].ToString();
+                    new object[] { "update", g.dc, g.dcten, g.dcngaythanhlap, g.dcngayketthuc, g.dcdiadiem, g.dcthoigian, g.createby });
 
 
                 if (g.CTHDDCs != null)
                 {
                     oAC.ExecuteStoredProcedure(
                         store2, parram2,
-                            new object[] { "deletall", g.dc, null, null });
+                            new object[] { "deleteall", g.dc, null, null });
                     foreach (var item in g.CTHDDCs)
                     {
 
@@ -108,12 +107,11 @@ namespace THS.WebAPI.Controller
                 {
                     oAC.ExecuteStoredProcedure(
                         store3, parram3,
-                            new object[] { "deleteall", g.dc, null, null, null, null });
+                            new object[] { "deleteall", g.dc, null,null,null,null,null,null,null,null });
                     foreach (var item in g.HDDCs)
                     {
-                        oAC.ExecuteStoredProcedure(
-                            store3, parram3,
-                            new object[] { "create", g.dc, item.lv, item.diem, item.ykien, item.ketqua });
+                        oAC.ExecuteStoredProcedure(store3, parram3,
+                        new object[] { "create", g.dc, item.lv, item.lanbaove, item.diem, item.ykien, item.ketqua, item.sophieudat });
                     }
                 }
             }
@@ -168,11 +166,11 @@ namespace THS.WebAPI.Controller
         }
         [Route("FindById")]
         [HttpPost]
-        public IHttpActionResult FindById(DeTaiLV lv)
+        public IHttpActionResult FindById(HDBVDC hd)
         {
             var data = oAC.ExecuteStoredProcedure("GetByID",
                 new string[] { "table", "value" },
-                new object[] { "HDBVDC", lv.lv });
+                new object[] { "HDBVDC", hd.dc });
             Dictionary<Object, Object> values = new Dictionary<object, object>();
             values.Add("Header", _helper.ConvertJson(data.Tables[0]));
             values.Add("CTHDDC", _helper.ConvertJson(data.Tables[1]));

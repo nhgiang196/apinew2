@@ -93,7 +93,7 @@ namespace THS.WebAPI.Controller
                 {
                     oAC.ExecuteStoredProcedure(
                         store2, parram2,
-                            new object[] { "deletall", g.hd, null, null });
+                            new object[] { "deleteall", g.hd, null, null });
                     foreach (var item in g.CTHDLVs)
                     {
 
