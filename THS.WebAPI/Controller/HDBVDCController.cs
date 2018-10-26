@@ -148,14 +148,14 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string dc, string tungay, string denngay, string status)
+        public IHttpActionResult Search(string dc, string tungay, string denngay, string lv, string gv, string status)
         {
             try
             {
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchHDDC",
-                  new string[] { "dc", "tungay", "denngay" ,"status"}
-                , new object[] { dc, tungay, denngay , status}).Tables[0];
+                  new string[] { "dc", "tungay", "denngay" , "lv", "gv" ,"status"}
+                , new object[] { dc, tungay, denngay ,lv, gv, status}).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)

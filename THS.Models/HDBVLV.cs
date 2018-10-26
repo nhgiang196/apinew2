@@ -21,7 +21,7 @@ namespace THS.Models
         public string hdten { get; set; }
         public System.DateTime hdngaythanhlap { get; set; }
         public Nullable<System.DateTime> hdngayketthuc { get; set; }
-        public string hddiadem { get; set; }
+        public string hddiadiem { get; set; }
         public Nullable<System.DateTime> hdthoigian { get; set; }
         public string status { get; set; }
         public string createby { get; set; }

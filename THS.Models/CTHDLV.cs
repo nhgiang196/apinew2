@@ -21,7 +21,7 @@ namespace THS.Models
         public string hd { get; set; }
         public string vaitro { get; set; }
 
-        public virtual GiangVien GiangVien { get; set; }
-        public virtual HDBVLV HDBVLV { get; set; }
+        //public virtual GiangVien GiangVien { get; set; }
+        //public virtual HDBVLV HDBVLV { get; set; }
     }
 }

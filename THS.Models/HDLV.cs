@@ -23,7 +23,7 @@ namespace THS.Models
         public string ykien { get; set; }
         public string ketqua { get; set; }
 
-        public virtual DeTaiLV DeTaiLV { get; set; }
-        public virtual HDBVLV HDBVLV { get; set; }
+        //public virtual DeTaiLV DeTaiLV { get; set; }
+        //public virtual HDBVLV HDBVLV { get; set; }
     }
 }
