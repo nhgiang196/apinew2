@@ -22,6 +22,30 @@ namespace THS.WebAPI.Controller
         HelperBiz _helper = new HelperBiz();
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
+        /*
+         * MAIL SENDER
+         */
+
+        [Route("MailSender")]
+        [HttpPost]
+        public IHttpActionResult MailSender(MailSender newmail)
+        {
+            try
+            {
+                newmail.sendGmail();
+                //newmail.sendOutlookMail();
+                operationResult.Message = "Mail sending Success";
+                operationResult.Success = true;
+                operationResult.Caption = "Success";
+                return Ok(operationResult);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+        }
+
         //--------------BO MON
         [Route("GetBasic")]
         [HttpGet]
@@ -31,7 +55,8 @@ namespace THS.WebAPI.Controller
             {
                 var dt = oAC.ExecuteStoredProcedure("GetBasic",
                      new string[] { "Table","bm" }, new object[] { Table,bm }).Tables[0];
-                return Ok(dt);
+
+                return Ok(dt);   
             }
             catch (Exception e)
             {

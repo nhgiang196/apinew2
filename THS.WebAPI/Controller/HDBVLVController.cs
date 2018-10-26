@@ -12,7 +12,7 @@ using System.Web.Http;
 namespace THS.WebAPI.Controller
 {
     [THS.WebAPI.Filter.FilterIP]
-    [RoutePrefix("api/ths/HDBVHLVontroller")]
+    [RoutePrefix("api/ths/HDBVLVController")]
     public class HDBVLVController : ApiController
     {
         private NBear.Data.Gateway oAC = new NBear.Data.Gateway("THS");
