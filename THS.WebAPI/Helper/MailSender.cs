@@ -10,32 +10,32 @@ using Microsoft.Office.Interop.Outlook;
 namespace THS.WebAPI.Helper
 {
     public class MailSender
-    
     {
         public MailSender() { }
-        
-        public MailSender(string toemail, string subject, string body) {
+
+        public MailSender(string toemail, string subject, string body)
+        {
             this.toemail = toemail;
             this.subject = subject;
             this.body = body;
         }
-        public string toemail{set;get;}
-        public string subject{set;get;}
+        public string toemail { set; get; }
+        public string subject { set; get; }
         public string body { set; get; }
         public void sendGmail()
         {
 
-                MailMessage mail = new MailMessage();
-                //Server mail của Google
-                SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Port = 587; //486
-                smtpServer.Credentials = new NetworkCredential("mrnguyenhoanggiang@gmail.com", "asdflkjp1");
-                mail.From = new MailAddress("mrnguyenhoanggiang@gmail.com");
-                mail.To.Add(toemail); 
-                mail.Subject = subject;
-                mail.Body = body;
-                smtpServer.EnableSsl = true;
-                smtpServer.Send(mail);
+            MailMessage mail = new MailMessage();
+            //Server mail của Google
+            SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+            smtpServer.Port = 587; //486
+            smtpServer.Credentials = new NetworkCredential("mrnguyenhoanggiang@gmail.com", "asdflkjp1");
+            mail.From = new MailAddress("mrnguyenhoanggiang@gmail.com");
+            mail.To.Add(toemail);
+            mail.Subject = subject;
+            mail.Body = body;
+            smtpServer.EnableSsl = true;
+            smtpServer.Send(mail);
         }
 
         public void sendOutlookMail()
@@ -62,7 +62,7 @@ namespace THS.WebAPI.Helper
                 // Add a recipient.
                 Recipients oRecips = (Recipients)oMsg.Recipients;
                 // Change the recipient in the next line if necessary.
-                Recipient oRecip = (Recipient)oRecips.Add("ltdung@fenc.vn");
+                Recipient oRecip = (Recipient)oRecips.Add(toemail);
                 oRecip.Resolve();
                 // Send.
                 oMsg.Send();

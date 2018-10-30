@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Http;
-    
+
 namespace THS.WebAPI.Controller
 {
     [THS.WebAPI.Filter.FilterIP]
@@ -22,6 +22,42 @@ namespace THS.WebAPI.Controller
         HelperBiz _helper = new HelperBiz();
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
+        public class mygrantparram
+        {
+            public string action { get; set; } 
+            public string user { get; set; } 
+            public string tcode { get; set; }
+            public string grantoption { get; set; }
+            private mygrantparram(string Action, string User, string Tcode, string Grantoption)
+            {
+                action = Action; user = User; tcode = Tcode; grantoption = Grantoption;
+            }
+        }
+
+        /*
+         * grant and voke
+         */
+
+        [Route("GrantVoke")]
+        [HttpPost]
+        public IHttpActionResult GrantVoke(mygrantparram pr)
+        {
+            try
+            {
+                var dt = oAC.ExecuteStoredProcedure("UserRole",
+                new string[] { "action", "username", "tcode", "grantoption" },
+                new object[] {  pr.action, pr.user, pr.tcode, pr.grantoption }).Tables[0];
+                operationResult.Message = pr.action + " succeed!";
+                operationResult.Success = true;
+                operationResult.Caption = "Success";
+                return Ok(operationResult);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+        }
         /*
          * MAIL SENDER
          */
@@ -49,14 +85,14 @@ namespace THS.WebAPI.Controller
         //--------------BO MON
         [Route("GetBasic")]
         [HttpGet]
-        public IHttpActionResult GetBasic(string Table,string bm)
+        public IHttpActionResult GetBasic(string Table, string bm)
         {
             try
             {
                 var dt = oAC.ExecuteStoredProcedure("GetBasic",
-                     new string[] { "Table","bm" }, new object[] { Table,bm }).Tables[0];
+                     new string[] { "Table", "bm" }, new object[] { Table, bm }).Tables[0];
 
-                return Ok(dt);   
+                return Ok(dt);
             }
             catch (Exception e)
             {
@@ -64,17 +100,18 @@ namespace THS.WebAPI.Controller
                 throw new Exception(e.Message);
             }
         }
-        
+
         [Route("BoMon")]
         [HttpPost]
         public IHttpActionResult BoMon(BoMon dt)
-        {   
-            try {
+        {
+            try
+            {
                 oAC.ExecuteStoredProcedure("CUD_BoMon", new string[] { "action", "bm", "bmten" }, new object[] { dt.action, dt.bm, dt.tenbm });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
-                return Ok(operationResult);    
+                return Ok(operationResult);
             }
             catch (Exception e)
             {
@@ -86,13 +123,14 @@ namespace THS.WebAPI.Controller
         [Route("LinhVucChuyenMon")]
         [HttpPost]
         public IHttpActionResult LinhVucChuyenMon(LinhVucChuyenMon dt)
-        {   
-            try {
+        {
+            try
+            {
                 oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", new string[] { "action", "cm", "cmten" }, new object[] { dt.action, dt.cm, dt.cmten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
-                return Ok(operationResult);    
+                return Ok(operationResult);
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
                 return Ok(operationResult);
@@ -111,8 +149,8 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_NienKhoa", new string[] { "action", "nk", "nkten", "nknam", "nktungay", "nkdenngay" }, 
-                            new object[] { dt.action, dt.nk,dt.nkten, dt.nknam, dt.nktungay, dt.nkdenngay });
+                oAC.ExecuteStoredProcedure("CUD_NienKhoa", new string[] { "action", "nk", "nkten", "nknam", "nktungay", "nkdenngay" },
+                            new object[] { dt.action, dt.nk, dt.nkten, dt.nknam, dt.nktungay, dt.nkdenngay });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -126,7 +164,7 @@ namespace THS.WebAPI.Controller
             return Ok(operationResult);
         }
 
-       
+
 
         [Route("ChuyenNganh")]
         [HttpPost]
@@ -134,7 +172,7 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn","bm","cnten" }, new object[] { dt.action, dt.cn,dt.bm, dt.cnten });
+                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "bm", "cnten" }, new object[] { dt.action, dt.cn, dt.bm, dt.cnten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -149,14 +187,14 @@ namespace THS.WebAPI.Controller
         }
         [Route("DonViNgoai")]
         [HttpPost]
-        public IHttpActionResult DonViNgoai( DonViNgoai dt)
-        { 
+        public IHttpActionResult DonViNgoai(DonViNgoai dt)
+        {
             try
             {
-            oAC.ExecuteStoredProcedure("CUD_DonViNgoai", new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" }, new object[] { dt.action, dt.dv, dt.dvten, dt.dvdiachi, dt.dvsdt, dt.dveil });
-            operationResult.Message = "Record Add/Update Success";
-            operationResult.Success = true;
-            operationResult.Caption = "Success";
+                oAC.ExecuteStoredProcedure("CUD_DonViNgoai", new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" }, new object[] { dt.action, dt.dv, dt.dvten, dt.dvdiachi, dt.dvsdt, dt.dveil });
+                operationResult.Message = "Record Add/Update Success";
+                operationResult.Success = true;
+                operationResult.Caption = "Success";
                 return Ok(operationResult);
             }
             catch (Exception e)
@@ -184,25 +222,25 @@ namespace THS.WebAPI.Controller
                 else if (table == "DonViNgoai")
                 {
                     var dt = oAC.ExecuteStoredProcedure("CUD_DonViNgoai",
-                        new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" }, 
-                        new object[] { "select" ,null, null, null,null , null }).Tables[0];
+                        new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" },
+                        new object[] { "select", null, null, null, null, null }).Tables[0];
 
                     return Ok(dt);
                 }
                 else if (table == "ChuyenNganh")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "bm","cnten" }, new object[] { "select",null, null,null }).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "bm", "cnten" }, new object[] { "select", null, null, null }).Tables[0];
                     return Ok(dt);
                 }
                 else if (table == "NienKhoa")
                 {
                     var dt = oAC.ExecuteStoredProcedure("CUD_NienKhoa", new string[] { "action", "nk", "nkten", "nknam", "nktungay", "nkdenngay" },
-                           new object[] { "select",null,null,null,null,null }).Tables[0];
+                           new object[] { "select", null, null, null, null, null }).Tables[0];
                     return Ok(dt);
                 }
                 else if (table == "LinhVucChuyenMon")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", new string[] { "action", "cm", "cmten" }, new object[] { "select",null, null}).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", new string[] { "action", "cm", "cmten" }, new object[] { "select", null, null }).Tables[0];
                     return Ok(dt);
                 }
                 operationResult.Message = "Wrong table name";
