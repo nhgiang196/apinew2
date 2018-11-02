@@ -31,10 +31,11 @@ namespace THS.WebAPI.Controller
             public string user { get; set; } 
             public string tcode { get; set; }
             public string grantoption { get; set; }
-            public mygrantparram(string Table, string Action, string User, string Tcode, string Grantoption)
+            public string usergrant { get; set; }
+            public mygrantparram(string Table, string Action, string User, string Tcode, string Grantoption, string Usergrant)
             {
                 action = Action; user = User; tcode = Tcode; grantoption = Grantoption;
-                table = Table;
+                table = Table; usergrant = Usergrant;
             }
         }
 
@@ -49,8 +50,8 @@ namespace THS.WebAPI.Controller
             try
             {
                 var dt = oAC.ExecuteStoredProcedure("UserRole",
-                new string[] { "action", "username", "tcode", "grantoption" },
-                new object[] {  pr.action, pr.user, pr.tcode, pr.grantoption }).Tables[0];
+                new string[] { "action", "username", "tcode", "grantoption", "usergrant" },
+                new object[] {  pr.action, pr.user, pr.tcode, pr.grantoption, pr.usergrant });
                 operationResult.Message = pr.action + " succeed!";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
