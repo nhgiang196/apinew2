@@ -23,14 +23,18 @@ namespace THS.WebAPI.Controller
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
         public class mygrantparram
+        
         {
+            public mygrantparram() { }
+            public string table { get; set; }
             public string action { get; set; } 
             public string user { get; set; } 
             public string tcode { get; set; }
             public string grantoption { get; set; }
-            private mygrantparram(string Action, string User, string Tcode, string Grantoption)
+            public mygrantparram(string Table, string Action, string User, string Tcode, string Grantoption)
             {
                 action = Action; user = User; tcode = Tcode; grantoption = Grantoption;
+                table = Table;
             }
         }
 
@@ -51,6 +55,28 @@ namespace THS.WebAPI.Controller
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
                 return Ok(operationResult);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+        }
+        /// <summary>
+        /// Find by ID
+        /// </summary>
+        /// <param name="pr"></param> 
+        /// <returns></returns>
+        [Route("FindByID")]
+        [HttpPost]
+        public IHttpActionResult FindByID(mygrantparram pr)
+        {
+            try
+            {
+                var dt = oAC.ExecuteStoredProcedure("GetByID",
+                new string[] { "table", "value" },
+                new object[] { pr.table, pr.user }).Tables[0];
+                return Ok(dt);
             }
             catch (Exception e)
             {
