@@ -38,7 +38,46 @@ namespace THS.WebAPI.Controller
                 table = Table; usergrant = Usergrant;
             }
         }
+        public class gvuser
+        {
+            public gvuser() { }
+            public string username { get; set; }
+            public string pass { get; set; }
+            public string newpass { get; set; }
+            public gvuser(string Username, string Pass, string Newpass)
+            {
+                username = Username;  pass = Pass; newpass = Newpass;
+            }
+        }
 
+        /*
+         * change password
+         */
+
+        [Route("ChangePassword")]
+        [HttpPost]
+        public IHttpActionResult ChangePassword(gvuser pr)
+        {
+            try
+            {
+                var dt = oAC.ExecuteStoredProcedure("ChangePassword",
+                new string[] { "username", "pass", "newpass" },
+                new object[] { pr.username, pr.pass, pr.newpass });
+                operationResult.Message = "change password succeed!";
+                operationResult.Success = true;
+                operationResult.Caption = "Success";
+                operationResult.Data = dt.Tables[0].Rows[0]["newpass"].ToString();
+            }
+            catch (Exception e)
+            {
+                operationResult.Message = "Change password failed!";
+                operationResult.Success = false;
+                operationResult.Caption = "Failed";
+                Loger.Error(e);
+                //throw new Exception(e.Message);
+            }
+            return Ok(operationResult); 
+        }
         /*
          * grant and voke
          */
