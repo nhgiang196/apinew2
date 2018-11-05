@@ -13,18 +13,19 @@ namespace THS.WebAPI.Helper
     {
         public MailSender() { }
 
-        public MailSender(string toemail, string subject, string body)
+        public MailSender(string tobm, string toemail, string subject, string body)
         {
+            this.tobm = tobm;
             this.toemail = toemail;
             this.subject = subject;
             this.body = body;
         }
         public string toemail { set; get; }
+        public string tobm { set; get; }
         public string subject { set; get; }
         public string body { set; get; }
         public void sendGmail()
         {
-
             MailMessage mail = new MailMessage();
             //Server mail của Google
             SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");

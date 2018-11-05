@@ -134,18 +134,25 @@ namespace THS.WebAPI.Controller
         {
             try
             {
+
+                if (newmail.toemail=="")
+                    newmail.toemail = oAC.ExecuteStoredProcedure("GetBasic",
+                     new string[] { "Table", "bm" }, new object[] { "EmailByBM", newmail.tobm }).Tables[0].Rows[0][0].ToString();
+
                 newmail.sendGmail();
                 //newmail.sendOutlookMail();
                 operationResult.Message = "Mail sending Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
-                return Ok(operationResult);
+                
             }
             catch (Exception e)
             {
-                Loger.Error(e);
-                throw new Exception(e.Message);
+                operationResult.Message = "Mail sending Failed!";
+                operationResult.Success = false;
+                operationResult.Caption = "Failed";
             }
+            return Ok(operationResult);
         }
 
         //--------------BO MON
