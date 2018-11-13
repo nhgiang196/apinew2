@@ -25,6 +25,8 @@ namespace THS.Models
         [Key]
         public string action { get; set; }
         public string cn { get; set; }
+        public string cnnew { get; set; }
+
         public string bm { get; set; }
         public string cnten { get; set; }
         public string status { get; set; }

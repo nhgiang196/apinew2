@@ -24,6 +24,7 @@ namespace THS.Models
         [Key]
         public string action { get; set; }
         public string bm { get; set; }
+        public string bmnew { get; set; }
         public string tenbm { get; set; }
         public string status { get; set; }
         //public virtual ICollection<GiangVien> GiangViens { get; set; }

@@ -23,12 +23,11 @@ namespace THS.WebAPI.Controller
         UnitOfWork unitOfWork = new UnitOfWork();
         OperationResult operationResult = new OperationResult();
         public class mygrantparram
-        
         {
             public mygrantparram() { }
             public string table { get; set; }
-            public string action { get; set; } 
-            public string user { get; set; } 
+            public string action { get; set; }
+            public string user { get; set; }
             public string tcode { get; set; }
             public string grantoption { get; set; }
             public string usergrant { get; set; }
@@ -46,7 +45,7 @@ namespace THS.WebAPI.Controller
             public string newpass { get; set; }
             public gvuser(string Username, string Pass, string Newpass)
             {
-                username = Username;  pass = Pass; newpass = Newpass;
+                username = Username; pass = Pass; newpass = Newpass;
             }
         }
 
@@ -76,7 +75,7 @@ namespace THS.WebAPI.Controller
                 Loger.Error(e);
                 //throw new Exception(e.Message);
             }
-            return Ok(operationResult); 
+            return Ok(operationResult);
         }
         /*
          * grant and voke
@@ -90,7 +89,7 @@ namespace THS.WebAPI.Controller
             {
                 var dt = oAC.ExecuteStoredProcedure("UserRole",
                 new string[] { "action", "username", "tcode", "grantoption", "usergrant" },
-                new object[] {  pr.action, pr.user, pr.tcode, pr.grantoption, pr.usergrant });
+                new object[] { pr.action, pr.user, pr.tcode, pr.grantoption, pr.usergrant });
                 operationResult.Message = pr.action + " succeed!";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -135,7 +134,7 @@ namespace THS.WebAPI.Controller
             try
             {
 
-                if (newmail.toemail=="")
+                if (newmail.toemail == "")
                     newmail.toemail = oAC.ExecuteStoredProcedure("GetBasic",
                      new string[] { "Table", "bm" }, new object[] { "EmailByBM", newmail.tobm }).Tables[0].Rows[0][0].ToString();
 
@@ -144,7 +143,7 @@ namespace THS.WebAPI.Controller
                 operationResult.Message = "Mail sending Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
-                
+
             }
             catch (Exception e)
             {
@@ -173,14 +172,14 @@ namespace THS.WebAPI.Controller
                 throw new Exception(e.Message);
             }
         }
-
+        string[] bmparram = { "action", "bm", "bmnew", "bmten" };
         [Route("BoMon")]
         [HttpPost]
         public IHttpActionResult BoMon(BoMon dt)
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_BoMon", new string[] { "action", "bm", "bmten" }, new object[] { dt.action, dt.bm, dt.tenbm });
+                oAC.ExecuteStoredProcedure("CUD_BoMon", bmparram, new object[] { dt.action, dt.bm, dt.bmnew, dt.tenbm });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -193,13 +192,14 @@ namespace THS.WebAPI.Controller
             }
             return Ok(operationResult);
         }
+        string[] cmparram = { "action", "cm", "cmnew", "cmten" };
         [Route("LinhVucChuyenMon")]
         [HttpPost]
         public IHttpActionResult LinhVucChuyenMon(LinhVucChuyenMon dt)
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", new string[] { "action", "cm", "cmten" }, new object[] { dt.action, dt.cm, dt.cmten });
+                oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", cmparram, new object[] { dt.action, dt.cm, dt.cmnew, dt.cmten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -215,15 +215,15 @@ namespace THS.WebAPI.Controller
             }
             return Ok(operationResult);
         }
-
+        string[] nkparram = { "action", "nk", "nknew", "nkten", "nknam", "nktungay", "nkdenngay" };
         [Route("NienKhoa")]
         [HttpPost]
         public IHttpActionResult NienKhoa(NienKhoa dt)
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_NienKhoa", new string[] { "action", "nk", "nkten", "nknam", "nktungay", "nkdenngay" },
-                            new object[] { dt.action, dt.nk, dt.nkten, dt.nknam, dt.nktungay, dt.nkdenngay });
+                oAC.ExecuteStoredProcedure("CUD_NienKhoa", nkparram,
+                            new object[] { dt.action, dt.nk, dt.nknew, dt.nkten, dt.nknam, dt.nktungay, dt.nkdenngay });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -232,12 +232,11 @@ namespace THS.WebAPI.Controller
             catch (Exception e)
             {
                 Loger.Error(e);
-                throw new Exception(e.Message);
             }
             return Ok(operationResult);
         }
 
-
+        string[] cnparram = { "action", "cn",  "cnnew", "bm", "cnten" };
 
         [Route("ChuyenNganh")]
         [HttpPost]
@@ -245,7 +244,7 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "bm", "cnten" }, new object[] { dt.action, dt.cn, dt.bm, dt.cnten });
+                oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", cnparram, new object[] { dt.action, dt.cn, dt.cnnew, dt.bm, dt.cnten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -258,13 +257,14 @@ namespace THS.WebAPI.Controller
             }
             return Ok(operationResult);
         }
+        string[] dvparram = { "action", "dv", "dvnew", "dvten", "dvdiachi", "dvsdt", "dveil" };
         [Route("DonViNgoai")]
         [HttpPost]
         public IHttpActionResult DonViNgoai(DonViNgoai dt)
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_DonViNgoai", new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" }, new object[] { dt.action, dt.dv, dt.dvten, dt.dvdiachi, dt.dvsdt, dt.dveil });
+                oAC.ExecuteStoredProcedure("CUD_DonViNgoai", dvparram, new object[] { dt.action, dt.dv, dt.dvnew, dt.dvten, dt.dvdiachi, dt.dvsdt, dt.dveil });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -286,34 +286,35 @@ namespace THS.WebAPI.Controller
             {
                 if (table == "BoMon")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_BoMon",
-                            new string[] { "action", "bm", "bmten" },
-                            new object[] { "select", null, null }).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_BoMon", bmparram,
+                            new object[] { "select", null, null, null }).Tables[0];
 
                     return Ok(dt);
                 }
                 else if (table == "DonViNgoai")
                 {
                     var dt = oAC.ExecuteStoredProcedure("CUD_DonViNgoai",
-                        new string[] { "action", "dv", "dvten", "dvdiachi", "dvsdt", "dveil" },
-                        new object[] { "select", null, null, null, null, null }).Tables[0];
+                       dvparram,
+                        new object[] { "select", null, null, null, null, null, null, null }).Tables[0];
 
                     return Ok(dt);
                 }
                 else if (table == "ChuyenNganh")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", new string[] { "action", "cn", "bm", "cnten" }, new object[] { "select", null, null, null }).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_ChuyenNganh", cnparram, new object[] { "select", null, null, null, null, null }).Tables[0];
                     return Ok(dt);
                 }
                 else if (table == "NienKhoa")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_NienKhoa", new string[] { "action", "nk", "nkten", "nknam", "nktungay", "nkdenngay" },
-                           new object[] { "select", null, null, null, null, null }).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_NienKhoa",
+                        nkparram,
+                           new object[] { "select", null, null, null, null, null, null }).Tables[0];
                     return Ok(dt);
                 }
                 else if (table == "LinhVucChuyenMon")
                 {
-                    var dt = oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", new string[] { "action", "cm", "cmten" }, new object[] { "select", null, null }).Tables[0];
+                    var dt = oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", cmparram
+                        , new object[] { "select", null, null, null }).Tables[0];
                     return Ok(dt);
                 }
                 operationResult.Message = "Wrong table name";

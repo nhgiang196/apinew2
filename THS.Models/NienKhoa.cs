@@ -27,6 +27,7 @@ namespace THS.Models
         [Key]
         public string action { get; set; }
         public string nk { get; set; }
+        public string nknew { get; set; }
         public string nkten { get; set; }
         public string nknam { get; set; }
         public Nullable<System.DateTime> nktungay { get; set; }

@@ -19,6 +19,7 @@ namespace THS.Models
         [Key]
         public string action { get; set; }
         public string cm { get; set; }
+        public string cmnew { get; set; }
         public string cmten { get; set; }
       public string status { get; set; }  
         //public virtual ICollection<DeTaiLV> DeTaiLVs { get; set; }
