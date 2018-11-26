@@ -31,6 +31,7 @@ namespace THS.WebAPI.Controller
             public string tcode { get; set; }
             public string grantoption { get; set; }
             public string usergrant { get; set; }
+            public string value { get; set; }
             public mygrantparram(string Table, string Action, string User, string Tcode, string Grantoption, string Usergrant)
             {
                 action = Action; user = User; tcode = Tcode; grantoption = Grantoption;
@@ -114,7 +115,7 @@ namespace THS.WebAPI.Controller
             {
                 var dt = oAC.ExecuteStoredProcedure("GetByID",
                 new string[] { "table", "value" },
-                new object[] { pr.table, pr.user }).Tables[0];
+                new object[] { pr.table, pr.value }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)
