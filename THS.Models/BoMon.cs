@@ -15,17 +15,12 @@ namespace THS.Models
         {
            
         }
-     public BoMon(string bm,  string ten)
-        {
-            this.bm = bm;
-            this.tenbm = ten;
-        }
-        [Column("BM")]
+        [Column("bm")]
         [Key]
         public string action { get; set; }
         public string bm { get; set; }
         public string bmnew { get; set; }
-        public string tenbm { get; set; }
+        public string bmten { get; set; }
         public string status { get; set; }
         //public virtual ICollection<GiangVien> GiangViens { get; set; }
        

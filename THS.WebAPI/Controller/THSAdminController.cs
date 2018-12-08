@@ -180,7 +180,7 @@ namespace THS.WebAPI.Controller
         {
             try
             {
-                oAC.ExecuteStoredProcedure("CUD_BoMon", bmparram, new object[] { dt.action, dt.bm, dt.bmnew, dt.tenbm });
+                oAC.ExecuteStoredProcedure("CUD_BoMon", bmparram, new object[] { dt.action, dt.bm, dt.bmnew, dt.bmten });
                 operationResult.Message = "Record Add/Update Success";
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
@@ -202,9 +202,6 @@ namespace THS.WebAPI.Controller
             {
                 oAC.ExecuteStoredProcedure("CUD_LinhVucChuyenMon", cmparram, new object[] { dt.action, dt.cm, dt.cmnew, dt.cmten });
                 operationResult.Message = "Record Add/Update Success";
-                operationResult.Success = true;
-                operationResult.Caption = "Success";
-                return Ok(operationResult);
                 operationResult.Success = true;
                 operationResult.Caption = "Success";
                 return Ok(operationResult);
@@ -329,6 +326,24 @@ namespace THS.WebAPI.Controller
             }
             return Ok(operationResult);
         }
+
+
+        [Route("ADC")]
+        [HttpGet]
+        public IHttpActionResult ADC(string st)
+        {
+            try
+            {
+                var dt = oAC.ExecuteStoredProcedure("ADC_store", new string[] {"st"}, new object[] { st }).Tables[0];
+                return Ok(dt);
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+        }
+        
 
 
 
