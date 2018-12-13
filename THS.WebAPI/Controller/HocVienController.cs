@@ -120,13 +120,13 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string hv, string cn, string nk, string status)
+        public IHttpActionResult Search(string hv, string cn, string nk, string status, string bm)
         {
             try
             {
                 object[] outParameters = null;
-                var dt = oAC.ExecuteStoredProcedure("SearchHocVien", new string[] { "hv", "cn", "nk", "status" }
-                , new object[] { hv, cn, nk, status }).Tables[0];
+                var dt = oAC.ExecuteStoredProcedure("SearchHocVien", new string[] { "hv", "cn", "nk", "status", "bm" }
+                , new object[] { hv, cn, nk, status, bm }).Tables[0];
                 //, new string[] { "Count" }, new DbType[] { DbType.Int32 }, out outParameters).Tables[0];
                 //Dictionary<string, Object> values = new Dictionary<string, object>();
                 //values.Add("TableData", _helper.ConvertJson(dt));

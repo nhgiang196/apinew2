@@ -26,7 +26,7 @@ namespace THS.WebAPI.Controller
         string store3 = "CRUD_HDLV";
         string[] parram1 = { "action", "hd", "hdten", "hdngaythanhlap", "hdngayketthuc", "hddiadiem", "hdthoigian", "user" };
         string[] parram2 = { "action", "hd", "gv", "vaitro" };
-        string[] parram3 = { "action", "hd", "lv", "lanbaove", "diem", "ykien", "ketqua", "sophieudat" };
+        string[] parram3 = { "action", "hd", "lv", "lanbaove", "diem", "ykien", "ketqua", "sophieudat", "thoidiembv" };
         /// <summary>
         /// List all Object
         /// </summary>
@@ -59,7 +59,7 @@ namespace THS.WebAPI.Controller
                     {
                         oAC.ExecuteStoredProcedure(
                             store3, parram3,
-                            new object[] { "create", newhd, item2.lv, item2.lanbaove, item2.diem, item2.ykien, item2.ketqua, item2.sophieudat });
+                            new object[] { "create", newhd, item2.lv, item2.lanbaove, item2.diem, item2.ykien, item2.ketqua, item2.sophieudat, item2.thoidiembv });
                     }
                 }
             }
@@ -107,11 +107,11 @@ namespace THS.WebAPI.Controller
                 {
                     oAC.ExecuteStoredProcedure(
                         store3, parram3,
-                            new object[] { "deleteall", g.hd, null, null, null, null, null, null, null, null });
+                            new object[] { "deleteall", g.hd, null, null, null, null, null, null, null, null, null, null });
                     foreach (var item in g.HDLVs)
                     {
                         oAC.ExecuteStoredProcedure(store3, parram3,
-                        new object[] { "create", g.hd, item.lv, item.lanbaove, item.diem, item.ykien, item.ketqua, item.sophieudat });
+                        new object[] { "create", g.hd, item.lv, item.lanbaove, item.diem, item.ykien, item.ketqua, item.sophieudat, item.thoidiembv });
                     }
                 }
             }
@@ -133,7 +133,7 @@ namespace THS.WebAPI.Controller
             try
             {
                 oAC.ExecuteStoredProcedure(store1, parram1,
-                    new object[] { "delete", entity.hd, null, null, null, null, null, null, null, null, null, null, null });
+                    new object[] { "delete", entity.hd, null, null, null, null, null, null, null, null, null, null, null, null, null });
             }
             catch (Exception e)
             {
@@ -148,14 +148,14 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string hd, string tungay, string denngay, string lv, string gv, string status)
+        public IHttpActionResult Search(string hd, string tungay, string denngay, string lv, string gv, string status, string owner)
         {
             try
             {
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchHDLV",
-                  new string[] { "hd", "tungay", "denngay", "lv", "gv", "status" }
-                , new object[] { hd, tungay, denngay, lv, gv, status }).Tables[0];
+                  new string[] { "hd", "tungay", "denngay", "lv", "gv", "status", "owner" }
+                , new object[] { hd, tungay, denngay, lv, gv, status ,owner}).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)
@@ -178,6 +178,10 @@ namespace THS.WebAPI.Controller
             //var data = _context.HDBVLV.Where(x => x.hv == hv).FirstOrDefault();
             return Ok(values);
         }
+
+
+
+
 
     }
 }

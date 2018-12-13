@@ -123,15 +123,15 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string lv, string cm, string qd, string cn, string hv, string bm, string status)
+        public IHttpActionResult Search(string lv, string cm, string qd, string cn, string hv, string bm, string status, string owner)
         {
             try
             {
 
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchLuanVan",
-                  new string[] { "lv","hv", "qd", "cm", "cn", "bm","status" }
-                , new object[] { lv, hv, qd, cm, cn, bm, status  }).Tables[0];
+                  new string[] { "lv","hv", "qd", "cm", "cn", "bm","status", "owner" }
+                , new object[] { lv, hv, qd, cm, cn, bm, status, owner  }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)

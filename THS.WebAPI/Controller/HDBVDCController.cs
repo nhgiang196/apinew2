@@ -26,7 +26,7 @@ namespace THS.WebAPI.Controller
         string store3 = "CRUD_HDDC";
         string[] parram1 = { "action", "dc", "dcten", "dcngaythanhlap", "dcngayketthuc", "dcdiadiem", "dcthoigian", "user" };
         string[] parram2 = { "action", "dc", "gv", "vaitro" };
-        string[] parram3 = { "action", "dc", "lv", "lanbaove", "diem", "ykien", "ketqua", "sophieudat" };
+        string[] parram3 = { "action", "dc", "lv", "lanbaove", "diem", "ykien", "ketqua", "sophieudat", "thoidiembvdc" };
         /// <summary>
         /// List all Object
         /// </summary>
@@ -59,7 +59,7 @@ namespace THS.WebAPI.Controller
                     {
                         oAC.ExecuteStoredProcedure(
                             store3, parram3,
-                            new object[] { "create", newhd, item2.lv, item2.lanbaove, item2.diem, item2.ykien, item2.ketqua, item2.sophieudat });
+                            new object[] { "create", newhd, item2.lv, item2.lanbaove, item2.diem, item2.ykien, item2.ketqua, item2.sophieudat, item2.thoidiembvdc });
                     }
                 }
             }
@@ -107,13 +107,56 @@ namespace THS.WebAPI.Controller
                 {
                     oAC.ExecuteStoredProcedure(
                         store3, parram3,
-                            new object[] { "deleteall", g.dc, null,null,null,null,null,null,null,null });
+                            new object[] { "deleteall", g.dc, null, null, null, null, null, null, null, null, null, null });
                     foreach (var item in g.HDDCs)
                     {
                         oAC.ExecuteStoredProcedure(store3, parram3,
-                        new object[] { "create", g.dc, item.lv, item.lanbaove, item.diem, item.ykien, item.ketqua, item.sophieudat });
+                        new object[] { "create", g.dc, item.lv, item.lanbaove, item.diem, item.ykien, item.ketqua, item.sophieudat, item.thoidiembvdc });
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Loger.Error(e);
+                throw new Exception(e.Message);
+            }
+            operationResult.Success = true;
+            operationResult.Message = "Record already Updated Success.";
+            operationResult.Caption = "Success";
+            return Ok(operationResult);
+        }
+        public class res
+        {
+            public res() { }
+            public string mahd { get; set; }
+            public string lv { get; set; }
+            public virtual ICollection<resdetail> resdetail { get; set; }
+ 
+        }
+        public class resdetail
+        {
+            public resdetail() { }
+            public string gv { get; set; }
+            public double diem { get; set; }
+            public string danhgia { get; set; }
+
+        }
+        [Route("UpdateResult")]
+        [HttpPost]
+        public IHttpActionResult UpdateResult(res r)
+        {
+            try
+            {
+                foreach (var item in r.resdetail)
+                {
+                    oAC.ExecuteStoredProcedure(
+                        "Update_Result", new string[] { "mahd", "lv", "gv", "diem", "danhgia" },
+                        new object[] { r.mahd, r.lv, item.gv, item.diem, item.danhgia });
+                }
+                operationResult.Success = true;
+                operationResult.Message = "Record already Updated Success.";
+                operationResult.Caption = "Success";
+                return Ok(operationResult);
             }
             catch (Exception e)
             {
@@ -148,14 +191,14 @@ namespace THS.WebAPI.Controller
 
         [Route("Search")]
         [HttpGet]
-        public IHttpActionResult Search(string dc, string tungay, string denngay, string lv, string gv, string status)
+        public IHttpActionResult Search(string dc, string tungay, string denngay, string lv, string gv, string status, string owner)
         {
             try
             {
                 object[] outParameters = null;
                 var dt = oAC.ExecuteStoredProcedure("SearchHDDC",
-                  new string[] { "dc", "tungay", "denngay" , "lv", "gv" ,"status"}
-                , new object[] { dc, tungay, denngay ,lv, gv, status}).Tables[0];
+                  new string[] { "dc", "tungay", "denngay", "lv", "gv", "status", "owner" }
+                , new object[] { dc, tungay, denngay, lv, gv, status, owner }).Tables[0];
                 return Ok(dt);
             }
             catch (Exception e)

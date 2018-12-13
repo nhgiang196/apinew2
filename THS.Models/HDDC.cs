@@ -23,6 +23,7 @@ namespace THS.Models
         public Nullable<float> diem { get; set; }
         public string ykien { get; set; }
         public string ketqua { get; set; }
+        public DateTime thoidiembvdc { get; set; }
         public Nullable<int> sophieudat { get; set; }
 		
         //public virtual DeTaiLV DeTaiLV { get; set; }
